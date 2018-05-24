@@ -1,0 +1,37 @@
+
+<!--Navbar-->
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark green " [containerInside]="false">
+           
+    <!-- Navbar brand -->
+    <logo><a class="navbar-brand"><i class="fa fa-heartbeat pr-2" aria-hidden="true"></i>Maps</a></logo>
+
+    <!-- Collapsible content -->
+    <links>
+
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto">
+           
+          <li class="nav-item active">
+                <a class="nav-link waves-light" mdbWavesEffect>ระยะทาง<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link waves-light" mdbWavesEffect>ค้นหา</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link waves-light" mdbWavesEffect>วันนี้</a>
+            </li>
+        </ul>
+        <!-- Links -->
+    </links>
+    <!-- Collapsible content -->
+
+</mdb-navbar>
+<!--/.Navbar-->
+
+<div id="map"></div>
+<div id="right-panel">
+    <p>Total Distance:
+        <span id="total"></span>
+    </p>
+</div>
+            

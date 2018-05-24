@@ -1,0 +1,51 @@
+<!--Navbar-->
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark unique-color fixed-top scrolling-navbar" [containerInside]="false" >
+
+    <!-- Navbar brand -->
+    <logo>
+        <a class="navbar-brand" href="#">
+            <img src="https://scontent.fnak1-1.fna.fbcdn.net/v/t1.0-9/68516_474052909332825_169802564_n.jpg?_nc_cat=0&oh=26123c32739915c6fb26cad5456cd830&oe=5B7787A4"
+                height="30" alt=""> งานการแพทย์ฉุกเฉินศรีสะเกษ
+        </a>
+    </logo>
+
+    <!-- Collapsible content -->
+    <links>
+
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item active">
+                <a class="nav-link waves-light" mdbWavesEffect>หน้าหลัก
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link waves-light" mdbWavesEffect>เพิ่มข้อมูล</a>
+            </li>
+
+
+            <!-- Dropdown -->
+            <li class="nav-item dropdown" dropdown>
+                <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+                    ตั้งค่า
+                    <span class="caret"></span>
+                </a>
+                <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+                    <a class="dropdown-item waves-light" mdbWavesEffect [routerLink]="['/teams']">หน่วยปฏิบัติการ</a>
+                    <a class="dropdown-item waves-light" mdbWavesEffect href="#">เจ้าหน้าที่</a>
+                    <a class="dropdown-item waves-light" mdbWavesEffect href="#">การติดต่อ</a>
+                    <div class="divider dropdown-divider"></div>
+                    <a class="dropdown-item waves-light" mdbWavesEffect href="#">แจ้งปัญหาการใช้งาน</a>
+                </div>
+            </li>
+
+        </ul>
+        <!-- Links -->
+
+
+    </links>
+    <!-- Collapsible content -->
+
+</mdb-navbar>
+<!--/.Navbar-->

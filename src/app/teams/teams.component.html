@@ -1,0 +1,195 @@
+<div class="text-right mb-3">
+  <button (click)="onCreate(form)" type="button" class="btn btn-primary waves-light " mdbWavesEffect>
+    <i class="fa fa-plus-square"></i> &nbsp; &nbsp;   เพิ่มหน่วยปฏิบัติการ
+  </button>
+</div>
+
+<!--Modal: Create team-->
+<div mdbModal #form="mdb-modal" class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog cascading-modal modal-lg" role="document">
+    <!--Content-->
+    <div class="modal-content">
+
+      <!--Header-->
+      <div class="modal-header light-blue darken-3 white-text">
+        <h4 class="title">
+          <i class="fa fa-pencil"></i> เพิ่มข้อมูลใหม่ </h4>
+        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close" (click)="form.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <!--Body-->
+      <form [formGroup]="Form" autocomplete="off" (ngSubmit)="onSubmit()" class="modal-body mb-0">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-3">
+                <img [src]=" getImageUrl() " alt="Image example" class="img-thumbnail img-fluid">
+              </div>
+              <div class="col-md-9">
+                <div class="md-form form-sm">
+                  <input formControlName="image" [mdbValidate]=false mdbInputDirective type="text" id="form19" class="form-control">
+                  <label for="form19">ภาพหน่วยปฏิบัติการ</label>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="md-form form-sm">
+              <i class="fa fa-navicon prefix"></i>
+              <input formControlName="code" [mdbValidate]=false mdbInputDirective type="number" id="form21" class="form-control">
+              <label for="form21">รหัสหน่วย</label>
+            </div>
+
+            <div class="md-form form-sm">
+              <i class="fa fa-ambulance prefix"></i>
+              <input formControlName="name" [mdbValidate]=false mdbInputDirective type="text" id="form20" class="form-control">
+              <label for="form20">ชื่อหน่วย</label>
+            </div>
+
+            <div class="md-form form-sm">
+              <i class="fa fa-map prefix" (click)="basicModal.show()"></i>
+              <input formControlName="location" [mdbValidate]=false mdbInputDirective type="text" id="form22" class="form-control">
+              <label for="form22">ที่ตั้ง</label>
+            </div>
+           
+            <!--Radio group-->
+            <fieldset class="form-group">
+              <legend>ระดับ</legend>
+              <i class="fa fa-dashboard prefix" > </i> &nbsp; &nbsp;  
+              <input type="radio" formControlName="level" value="ALS"> ALS
+              <input type="radio" formControlName="level" value="BLS"> BLS
+              <input type="radio" formControlName="level" value="FR"> FR
+            </fieldset>
+            <!--Radio group-->
+
+            <div class="md-form form-sm">
+              <i class="fa fa-pencil prefix"></i>
+              <textarea formControlName="detail" [mdbValidate]=false mdbInputDirective type="text" id="form8" class="md-textarea mb-0"></textarea>
+              <label for="form8">รายละเอียด / อุปกรณ์ / ความสามารถ</label>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+              <agm-map 
+              [latitude]="lat" 
+              [longitude]="lng"
+              [zoom]=13
+              (mapClick)="onSetMarker($event)">
+                    <agm-marker 
+                    [latitude]="marker.lat" 
+                    [longitude]="marker.lng"
+                    *ngIf="marker">
+                  </agm-marker>
+              </agm-map>
+              <h5>Latitude : {{ marker?.lat }}</h5>
+              <h5>longitude : {{ marker?.lat }}</h5>
+          </div>
+        </div>
+
+
+        <div class="text-center mt-1-half">
+          <button [disabled]="Form.invalid" type="submit"  class="btn btn-info mb-2 waves-light" mdbWavesEffect> บันทึก / แก้ไข
+            <i class="fa fa-send ml-1"></i>
+          </button>
+          <button  (click)="onDeleteForm(item)"  type="button" *ngIf="edit_check" class="btn btn-unique mb-2 waves-light" mdbWavesEffect> ลบหน่วยปฏิบัติการ
+            <i class="fa fa-trash ml-1"></i>
+          </button>
+        </div>
+
+      </form>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!--Modal: Create form-->
+
+<h3>หน่วยที่พร้อมให้บริการ</h3>
+<div class=" hr-box row">
+  <div class="col-md-3" *ngFor="let team of items | async">
+    <div class="card myStatus " *ngIf=" team.status == 'isReady'">
+      <img class="img-fluid" [src]="team.image " >
+      <li class="list-group-item">หน่วย : {{ team.name }} </li>
+      <li class="list-group-item">ระดับ : {{ team.level }}</li>
+      <li> 
+        <a class="teal-text" (click)="onEditForm(team)" >
+        <i class="fa fa-pencil" ></i>
+      </a>
+    </li>
+
+    <ul>
+      <li *ngFor="let item of items | async">
+         {{ item | json }}
+      </li>
+    </ul>
+    </div>
+  </div>
+</div>
+
+<h3>หน่วยทั้งหมด</h3>
+<div class=" hr-box row">
+  <div class="col-md-3" *ngFor="let team of items | async">
+    <div class="card ">
+      <img class="img-fluid" [src]="team.image " >
+      <li class="list-group-item">หน่วย : {{ team.name }} </li>
+      <li class="list-group-item">รหัส : {{ team.code }} </li>
+      <li class="list-group-item">พิกัด :{{ team.location?.lat  }} , {{ team.location?.lng  }} </li>
+      <li class="list-group-item">รายละเอียด : {{ team.detail }}</li>
+      <li class="list-group-item">ระดับ : {{ team.level }}</li>
+      <li> 
+        <a class="teal-text" (click)="onEditForm(team)" >
+        <i class="fa fa-pencil" ></i>
+      </a>
+    </li>
+
+    <ul>
+      <li *ngFor="let item of items | async">
+         {{ item | json }}
+      </li>
+    </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<!--Modal: Delete  form-->
+<div mdbModal #deleteModal="mdb-modal" [config]="{ backdrop : 'static' }" class="modal fade" id="modalContactForm" tabindex="-1"
+  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog cascading-modal" role="document">
+    <!--Content-->
+    <div class="modal-content">
+
+      <!--Header-->
+      <div class="modal-header red darken-3 white-text">
+        <h4 class="title">
+          <i class="fa fa-trash"></i>
+          ลบข้อมูลออกจากระบบ
+        </h4>
+      </div>
+      <!--Body-->
+      <div class="modal-body mb-0">
+
+        <div class="alert alert-warning">
+          คุณต้องการลบข้อมูลหน่วย "{{ Form.value['name'] }}" หรือไม่?
+        </div>
+
+        <div class="text-center mt-1-half">
+          <button class="btn btn-info mb-2 waves-light" (click)="deleteModal.hide()" mdbWavesEffect>
+            ไม่ ต้องการปิดหน้านี้
+            <span aria-hidden="true">×</span>
+          </button>
+          <button (click)="onDelete()" (click)="deleteModal.hide()" class="btn btn-danger mb-2 waves-light" mdbWavesEffect>
+            ใช่ ฉันต้องการลบข้อมูล
+            <i class="fa fa-trash ml-1"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!--Modal: Contact form-->
+

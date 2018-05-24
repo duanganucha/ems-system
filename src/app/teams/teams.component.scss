@@ -1,0 +1,16 @@
+.hr-box:not(:last-child){
+    border-bottom :solid 1px #d46fd4;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+}
+
+agm-map {
+    height: 300px;
+  }
+
+.myStatus {
+    border: 1px dashed black;
+    background-color: green;
+    
+
+   }

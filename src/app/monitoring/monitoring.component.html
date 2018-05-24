@@ -1,0 +1,105 @@
+<!--Navbar-->
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark pink " [containerInside]="false">
+
+    <!-- Navbar brand -->
+    <logo>
+        <a class="navbar-brand">
+            <i class="fa fa-heartbeat pr-2" aria-hidden="true"></i>Monitoring</a>
+    </logo>
+
+    <!-- Collapsible content -->
+    <links>
+
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item active">
+                <a class="nav-link waves-light" mdbWavesEffect>ระยะทาง
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link waves-light" mdbWavesEffect>ค้นหา</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link waves-light" mdbWavesEffect>วันนี้</a>
+            </li>
+        </ul>
+        <!-- Links -->
+    </links>
+    <!-- Collapsible content -->
+
+</mdb-navbar>
+<!--/.Navbar-->
+
+<div class="row">
+
+    <div class="col-md-8">
+        <div>
+            <img src="https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/m9mFfKM/advanced-emergency-medical-technician-provide-critical-care-to-patient-in-ambulance-using-variety-of-modern-equipment-for-life-support_vdsvy4hdx__F0000.png"
+                alt="" width="100%">
+        </div>
+        <div>
+            <agm-map [latitude]=" itemRef.latitude " [longitude]=" itemRef.longitude " [zoom]=13>
+                <agm-marker 
+                [latitude]=" itemRef.latitude " 
+                [longitude]=" itemRef.longitude "
+                [iconUrl]="icon">
+            </agm-marker>
+
+            <!-- <agm-marker
+                [latitude]="itemRef.latitude"
+                [longitude]="itemRef.longitude"
+                [iconAnchorX]="10"
+                [iconAnchorY]="10"
+                [iconHeight]="20"
+                [iconWidth]="20"
+                [iconUrl]="../../assets/ambulance.png">
+                </agm-marker> -->
+            </agm-map>
+        </div>
+        <h3>{{ itemRef.longitude }}</h3>
+        <h3>{{ itemRef.longitude }}</h3>
+    </div>
+
+    <div class="col-md-4">
+        <div class="list-card">
+
+            <a class="btn btn-blue ">
+                <h6 class="card-title">GCS</h6>
+                <h1>E3V4M5</h1>
+                Coma score</a>
+
+            <a class="btn btn-blue ">
+                <h6 class="card-title">Pulse</h6>
+                <h1>84</h1>
+                ชีพจร</a>
+
+            <a class="btn btn-blue">
+                <h6 class="card-title">RR</h6>
+                <h1>24</h1>
+                หายใจ</a>
+            <a class="btn btn-blue ">
+                <h6 class="card-title">BP</h6>
+                <h1>120/60</h1>
+                ความดันโลหิต</a>
+            <a class="btn btn-blue">
+                <h6 class="card-title">Temp</h6>
+                <h1>38.4</h1>
+                อุณหภมูมิ</a>
+            <a class="btn btn-blue">
+                <h6 class="card-title">O2</h6>
+                <h1>24</h1>
+                O2 sat</a>
+
+
+
+
+            <a class="btn btn-blue ">
+                <h6 class="card-title">DTX</h6>
+                <h1>129 mg%</h1>
+                Blood Sugar</a>
+        </div>
+    </div>
+
+</div>

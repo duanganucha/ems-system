@@ -1,0 +1,118 @@
+<!--Navbar-->
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark pink darken-4 " [containerInside]="false">
+
+  <!-- Navbar brand -->
+  <logo>
+    <a class="navbar-brand">
+      <i class="fa fa-crosshairs  pr-2" aria-hidden="true"></i>Detecting</a>
+  </logo>
+
+  <!-- Collapsible content -->
+  <links>
+
+    <!-- Links -->
+    <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item active">
+        <a class="nav-link waves-light" mdbWavesEffect>ระยะทาง</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link waves-light" mdbWavesEffect>ค้นหา</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link waves-light" mdbWavesEffect>วันนี้</a>
+      </li>
+    </ul>
+    <!-- Links -->
+  </links>
+  <!-- Collapsible content -->
+
+</mdb-navbar>
+<!--/.Navbar-->
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="card">
+        <img class="img-fluid" src="{{item?.imageBase64}}" alt="Card image cap">
+        <h4 class="card-title">เหตุการณ์ : {{item?.scene}} </h4>
+        <ul class="list-group">
+          <li class="list-group-item">เบอร์โทร : {{ item?.telNumber }}</li>
+          <li class="list-group-item">สถานที่เกิดเหตุ : {{ item?.locationDetail}}</li>
+        </ul>
+        <a class="btn btn-primary waves-light" mdbWavesEffect (click)="showCase(item)">เลือก</a>
+      </div>
+    </div>
+
+    <div class="col-md-9">
+      <div class="row">
+        <div class="col-md-3" *ngFor="let team of teams | async">
+          <div class="card">
+            <div *ngIf=" team.status == 'isReady'">
+              <img class="img-fluid" src="{{ team.image }}" alt="Card image cap">
+              <ul class="list-group">
+                <li class="list-group-item">{{team.name }}</li>
+                <li class="list-group-item">{{team.level }}</li>
+              </ul>
+              <a class="btn btn-primary waves-light" mdbWavesEffect (click)="onSelectTeam(team)">เลือก</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="row">
+
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-sm">
+          <button type="button" class="btn btn-danger btn-lg btn-block" (click)="routePath()">หาเส้นทาง</button>
+          <button type="button" class="btn btn-primary btn-lg btn-block" (click)="clearPath()">ล้างเส้นทาง</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ----------Map------------------ -->
+    <div class="col-md-12">
+      <div id="select">
+        <div class="container">
+          <div class="row">
+            <div class="alert alert-success col-sm-3">
+              ปลายทาง : {{ selectCase?.locationDetail }}
+            </div>
+            <div class="alert alert-success col-sm-1">
+              ==>>
+            </div>
+            <div class="alert alert-success col-sm-3">
+              ต้นทาง : {{ selectTeam?.name }}
+            </div>
+            <div class="alert alert-success col-sm-4">
+              ระยะทาง : {{ distance }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <br>
+        <div id="map2"></div>
+        <div id="pano"></div>
+      </div>
+      <br>
+
+      <div>
+        <div id="map"></div>
+      </div>
+
+      <div class="col-md-12">
+        <div id="right-panel"></div>
+      </div>
+    </div>
+
+  </div>
+  <!-- ----------Map------------------ -->
+
+</div>
