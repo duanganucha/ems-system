@@ -7,27 +7,16 @@
             <i class="fa fa-heartbeat pr-2" aria-hidden="true"></i>Monitoring</a>
     </logo>
 
-    <!-- Collapsible content -->
     <links>
-
-        <!-- Links -->
         <ul class="navbar-nav mr-auto">
-
             <li class="nav-item active">
-                <a class="nav-link waves-light" mdbWavesEffect>ระยะทาง
-                    <span class="sr-only">(current)</span>
+                <a class="nav-link waves-light"  mdbWavesEffect>จัดการข้อมูล
+                    <!-- <span class="sr-only">(current)</span> -->
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link waves-light" mdbWavesEffect>ค้นหา</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link waves-light" mdbWavesEffect>วันนี้</a>
-            </li>
         </ul>
-        <!-- Links -->
+
     </links>
-    <!-- Collapsible content -->
 
 </mdb-navbar>
 <!--/.Navbar-->
@@ -46,16 +35,6 @@
                 [longitude]=" itemRef.longitude "
                 [iconUrl]="icon">
             </agm-marker>
-
-            <!-- <agm-marker
-                [latitude]="itemRef.latitude"
-                [longitude]="itemRef.longitude"
-                [iconAnchorX]="10"
-                [iconAnchorY]="10"
-                [iconHeight]="20"
-                [iconWidth]="20"
-                [iconUrl]="../../assets/ambulance.png">
-                </agm-marker> -->
             </agm-map>
         </div>
         <h3>{{ itemRef.longitude }}</h3>

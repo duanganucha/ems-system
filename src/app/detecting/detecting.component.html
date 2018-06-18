@@ -34,28 +34,24 @@
   <div class="row">
     <div class="col-md-3">
       <div class="card">
-        <img class="img-fluid" src="{{item?.imageBase64}}" alt="Card image cap">
-        <h4 class="card-title">เหตุการณ์ : {{item?.scene}} </h4>
-        <ul class="list-group">
-          <li class="list-group-item">เบอร์โทร : {{ item?.telNumber }}</li>
-          <li class="list-group-item">สถานที่เกิดเหตุ : {{ item?.locationDetail}}</li>
-        </ul>
+        <img class="img-fluid" src="{{item?.image}}" alt="Card image cap">
+        <h5 class="card-title">เหตุการณ์ : {{item?.scene}} </h5>
+        <p class="card-text">เบอร์โทร : {{ item?.telNumber }}</p>
+        <p class="card-text pb-5">สถานที่เกิดเหตุ : {{ item?.locationDetail}}</p>
         <a class="btn btn-primary waves-light" mdbWavesEffect (click)="showCase(item)">เลือก</a>
       </div>
     </div>
 
     <div class="col-md-9">
       <div class="row">
-        <div class="col-md-3" *ngFor="let team of teams | async">
-          <div class="card">
-            <div *ngIf=" team.status == 'isReady'">
-              <img class="img-fluid" src="{{ team.image }}" alt="Card image cap">
-              <ul class="list-group">
-                <li class="list-group-item">{{team.name }}</li>
-                <li class="list-group-item">{{team.level }}</li>
-              </ul>
-              <a class="btn btn-primary waves-light" mdbWavesEffect (click)="onSelectTeam(team)">เลือก</a>
-            </div>
+        <div class="col-md-4" *ngFor="let team of teams | async">
+          <div class="card" *ngIf=" team.status == 'isReady'">
+            <img class="img-fluid" src="{{ team.image }}" alt="Card image cap">
+            <ul class="list-group">
+              <li class="list-group-item">{{team.name }}</li>
+              <li class="list-group-item">{{team.level }}</li>
+            </ul>
+            <a class="btn btn-primary waves-light" mdbWavesEffect (click)="onSelectTeam(team)">เลือก</a>
           </div>
         </div>
       </div>
@@ -69,14 +65,16 @@
     <div class="col-md-12">
       <div class="row">
         <div class="col-sm">
-          <button type="button" class="btn btn-danger btn-lg btn-block" (click)="routePath()">หาเส้นทาง</button>
-          <button type="button" class="btn btn-primary btn-lg btn-block" (click)="clearPath()">ล้างเส้นทาง</button>
+          <button type="button" class="btn btn-danger btn-lg " (click)="routePath()">หาเส้นทาง</button>
+          <button type="button" class="btn btn-primary btn-lg " (click)="autoSearchPath()">หาเส้นทางอัติโนมัติ</button>
+          <button type="button" class="btn btn-primary btn-lg " (click)="orderTeam()">เลือกสั่งการ</button>
         </div>
       </div>
     </div>
 
     <!-- ----------Map------------------ -->
     <div class="col-md-12">
+
       <div id="select">
         <div class="container">
           <div class="row">
@@ -97,22 +95,83 @@
       </div>
 
       <div>
-        <br>
-        <div id="map2"></div>
-        <div id="pano"></div>
-      </div>
-      <br>
-
-      <div>
         <div id="map"></div>
-      </div>
-
-      <div class="col-md-12">
         <div id="right-panel"></div>
       </div>
+
+      <div>
+        <div id="pano"></div>
+        <div id="map2"></div>
+      </div>
+
+
+
     </div>
 
   </div>
   <!-- ----------Map------------------ -->
 
 </div>
+
+<!-- ----------------------------------------- -->
+
+<!--Section: Products v.2-->
+<section class="text-center pb-3 my-5">
+  <!--Section heading-->
+  <h1 class="font-weight-bold text-center h1 py-5">Our bestsellers</h1>
+  <!--Section description-->
+  <p class="grey-text pb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, error amet numquam iure provident voluptate esse quasi,
+    veritatis totam voluptas nostrum quisquam eum porro a pariatur accusamus veniam.</p>
+  <!--Grid row-->
+  <div class="row">
+    <!--Grid column-->
+    <div class="col-lg-4 col-md-12 mb-3">
+      <!--Card-->
+      <div class="card card-cascade wider card-ecommerce">
+        <!--Card image-->
+        <div class="view overlay waves-light" mdbWavesEffect>
+          <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/img (55).jpg" class="img-fluid" alt="sample photo">
+          <a>
+            <div class="mask rgba-white-slight"></div>
+          </a>
+        </div>
+        <!--Card image-->
+        <!--Card content-->
+        <div class="card-body text-center no-padding">
+          <!--Category & Title-->
+          <a href="" class="text-muted">
+            <h5>Camera</h5>
+          </a>
+          <h4 class="card-title">
+            <strong>
+              <a href="">GoPro</a>
+            </strong>
+          </h4>
+          <!--Description-->
+          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing minima veniam elit.</p>
+          <!--Card footer-->
+          <div class="card-footer">
+            <span class="float-left font-weight-bold">
+              <strong>1439$</strong>
+            </span>
+            <span class="float-right">
+              <a class="" data-toggle="tooltip" data-placement="top" title="Quick Look">
+                <i class="fa fa-eye grey-text ml-3"></i>
+              </a>
+              <a class="" data-toggle="tooltip" data-placement="top" title="Add to Wishlist">
+                <i class="fa fa-heart grey-text ml-3"></i>
+              </a>
+            </span>
+          </div>
+        </div>
+        <!--Card content-->
+      </div>
+      <!--Card-->
+    </div>
+    <!--Grid column-->
+  </div>
+  <!--Grid row-->
+</section>
+<!--Section: Products v.2-->
+
+

@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sideleft.component.scss']
 })
 export class SideleftComponent implements OnInit {
-title = 'aa'
+
+
   constructor() { }
 
   ngOnInit() {

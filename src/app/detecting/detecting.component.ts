@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
-import {  AngularFireList } from 'angularfire2/database';
+import { AngularFireList } from 'angularfire2/database';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -24,7 +24,7 @@ export class DetectingComponent implements OnInit {
   itemRefTeam: AngularFireList<any>;
   teams: Observable<Team[]>;
 
-  item:Item;
+  item: Item;
   id;
 
   directionsService = new google.maps.DirectionsService;
@@ -41,16 +41,16 @@ export class DetectingComponent implements OnInit {
   public duration: string;
   public start_address: string;
   public end_address: string;
- 
-  
 
-  constructor(private route: ActivatedRoute ,private afDB: AngularFireDatabase) {
-   
-    
-    this.id = this.route.snapshot.params['id'];
-    this.itemRef = afDB.object(`test/${this.id}`);
+
+
+  constructor(private activeRoute: ActivatedRoute, private router :Router, private afDB: AngularFireDatabase) {
+
+
+    this.id = this.activeRoute.snapshot.params['id'];
+    this.itemRef = afDB.object(`requests/${this.id}`);
     this.itemRef.snapshotChanges().subscribe(action => {
-    
+
       this.item = action.payload.val();
       console.log(this.item)
 
@@ -58,29 +58,21 @@ export class DetectingComponent implements OnInit {
 
     this.itemRefTeam = this.afDB.list('/teams');
     this.teams = this.itemRefTeam.snapshotChanges().map(changes => {
-      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() })) ;
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });
 
   }
- 
 
 
   ngOnInit() {
 
-    // this.teams = [
-
-    //   // new Team(1, "สว่างจิตต์ ศก.", 'Vancouver, BC'),
-    //   // new Team(2, "ศก.สงเคราห์", 'Seattle, WA'),
-    //   // new Team(3, "อบต.โพนค้อ", 'San Francisco, CA'),
-
-    // ]
-
     this.MapStart();
     this.StreetViewPanorama();
 
-
   }
- 
+
+
+
 
   MapStart() {
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -94,12 +86,12 @@ export class DetectingComponent implements OnInit {
   routePath() {
     // this.path1 = this.selectCase.name
     // this.path2 = this.selectTeam.location 
-    this.path1 = this.selectTeam.location //ทีมช่วยเหลือ
-    console.log(this.path1)
-    this.path2 = { lat: this.item.latitude, lng: this.item.longitude } //ปลายทาง
+    this.path1 = this.selectTeam.location  //ทีมช่วยเหลือ
+    this.path2 = this.item.location //ปลายทาง
+
     this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay)
   }
-  
+
 
   calculateAndDisplayRoute(directionsService, directionsDisplay) {
 
@@ -108,30 +100,90 @@ export class DetectingComponent implements OnInit {
       destination: this.path2,
       travelMode: 'DRIVING'
 
-    },  (response, status) => {
+    }, (response, status) => {
       if (status === 'OK') {
         directionsDisplay.setDirections(response);
-        
+
         this.distance = response.routes[0].legs[0].distance.text;
         this.duration = response.routes[0].legs[0].duration.text;
         this.start_address = response.routes[0].legs[0].start_address;
         this.end_address = response.routes[0].legs[0].end_address;
 
         console.log(response.routes[0].legs[0].distance.text)
+        console.log(response.routes[0].legs[0].duration.text)
         console.log(response.routes[0].legs[0].end_address)
 
       } else {
         window.alert('Directions request failed due to ' + status);
-      }         
+      }
 
     }
-  );
+    );
 
   }
-  clearPath() {
-    alert("clear path")
+
+   
+  autoSearchPath() {
+
+    this.itemRefTeam = this.afDB.list('/teams');
+    this.itemRefTeam.snapshotChanges().subscribe(snapshot => {
+      snapshot.forEach(snapshot => {
+
+        this.routePath2( snapshot.key, snapshot.payload.val() )
+        
+      })
+    });
+
   }
+ 
+  myArray = [];
   
+
+  routePath2(key,value) {
+
+    // console.log(this.teamRoute_val.location)
+    this.path1 = value.location  //ทีมช่วยเหลือ
+    this.path2 = this.item.location //ปลายทาง
+
+    this.directionsService.route({
+      origin: this.path1,
+      destination: this.path2,
+      travelMode: 'DRIVING'
+
+    }, (response, status) => {
+      if (status === 'OK') {
+        this.directionsDisplay.setDirections(response);
+
+        this.distance = response.routes[0].legs[0].distance.text;
+        this.duration = response.routes[0].legs[0].duration.text;
+        this.start_address = response.routes[0].legs[0].start_address;
+        this.end_address = response.routes[0].legs[0].end_address;
+
+        // console.log(response.routes[0].legs[0].duration.text)
+        // console.log(response.routes[0].legs[0].end_address)
+       
+       
+        var distance = 
+          { key : key ,
+           distance :response.routes[0].legs[0].distance.value ,
+           time :  response.routes[0].legs[0].duration.text 
+          }
+        
+        this.myArray.push(distance)
+
+        console.log('distance = ' + JSON.stringify(this.myArray))
+
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }
+
+    }
+    );
+
+  }
+
+
+
   StreetViewPanorama() {
     // var fenway = { lat: 42.345573, lng: -71.098326 };
     var fenway = { lat: 15.1158148, lng: 104.3205983 };
@@ -160,31 +212,29 @@ export class DetectingComponent implements OnInit {
   }
 
   onSelectTeam(team: Team) {
-    console.log(team.location)
     this.selectTeam = team;
-    
+    console.log(this.selectTeam)
+
   }
 
-  // createMap(location = new google.maps.LatLng(15.9842532, 101.1071849)) {
-  //   let mapOptions = {
-  //     center: location,
-  //     zoom: 15,
-  //     mapTypeId: google.maps.MapTypeId.ROADMAP,
-  //     disableDefaultUI: false
-  //   }
-  //   let mapEI = document.getElementById('map')
-  //   let map = new google.maps.Map(mapEI, mapOptions);
-  //   return map;
-  // }
+  orderTeam(){
+    console.log("order team and go to Monotoring case")  
+    this.router.navigate(['/monitoring', this.id]);
+
+  }
 }
+
 
 interface Item {
-  telNumber?:string;
-  latitude?:Number;
-  longitude?:Number;
-  locationDetail?:string;
-  scene?:string;
-  imageBase64?:string
-
-
+  telNumber?: string;
+  location: {
+    lat:string;
+    lng:string;
+  }
+  locationDetail?: string;
+  scene?: string;
+  image?: string
 }
+
+
+

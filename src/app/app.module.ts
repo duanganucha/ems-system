@@ -25,6 +25,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { MapsComponent } from './maps/maps.component';
 import { ManagerComponent } from './manager/manager.component';
+import { Map2Component } from './map2/map2.component';
+import { ManagementComponent } from './management/management.component';
 
 
 @NgModule({
@@ -41,7 +43,9 @@ import { ManagerComponent } from './manager/manager.component';
     NotificationComponent,
     TeamsComponent,
     MapsComponent,
-    ManagerComponent
+    ManagerComponent,
+    Map2Component,
+    ManagementComponent
   ],
   imports: [
     BrowserModule,
@@ -57,9 +61,13 @@ import { ManagerComponent } from './manager/manager.component';
       { path: 'detecting', component: DetectingComponent },
       { path: 'detecting/:id', component: DetectingComponent },
       { path: 'monitoring', component: MonitoringComponent },
+      { path: 'monitoring/:id', component: MonitoringComponent },
       { path: 'notification', component: NotificationComponent },
       { path: 'manager', component: ManagerComponent },
+      { path: 'management', component: ManagementComponent },
+      { path: 'management/:id', component: ManagementComponent },
       { path: 'maps', component: MapsComponent },
+      { path: 'maps2', component: Map2Component },
       { path: 'teams', component: TeamsComponent }
     ])
   ],

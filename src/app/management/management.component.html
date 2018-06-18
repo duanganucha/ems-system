@@ -1,0 +1,344 @@
+<div class="" style="padding: 5px 25px 25px 25px;">
+  <form [formGroup]="Form" autocomplete="off" (ngSubmit)="onSubmit()" class="modal-body mb-0">
+    <div class="row border border-danger rounded" style=" padding: 20px 5px 5px 15px">
+
+      <div class="md-form">
+        <i class="fa fa-ambulance prefix grey-text"></i>
+        <input formControlName="team" type="text" id="form1" class="form-control" mdbActive>
+        <label for="form1">หน่วยปฏิบัติ</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-user-md prefix grey-text"></i>
+        <input formControlName="teamLevel" type="text" id="form2" class="form-control" mdbActive>
+        <label for="form2">ระดับปฏิบัติการ</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-list prefix grey-text"></i>
+        <input formControlName="missionNumber" type="text" id="form3" class="form-control" mdbActive>
+        <label for="form3">เลขปฏิบัติการ</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-list prefix grey-text"></i>
+        <input formControlName="key" type="text" id="form4" class="form-control" mdbActive>
+        <label for="form4">id-key</label>
+      </div>
+    </div>
+    <br>
+    <!-- ---------------สถานที่เกิดเหตุ--------------- -->
+    <div class="row border border-danger rounded" style=" padding: 20px 5px 5px 15px">
+      <div class="md-form">
+        <i class="fa fa-map-marker prefix grey-text"></i>
+        <input formControlName="locationDetail" type="text" id="form5" class="form-control" mdbActive>
+        <label for="form5">สถานที่เกิดเหตุ</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-map-marker prefix grey-text"></i>
+        <input formControlName="latitude" type="text" id="form6" class="form-control" mdbActive>
+        <label for="form6">Latitude</label>
+        <div id="map"></div>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-map-marker prefix grey-text"></i>
+        <input formControlName="longitude" type="text" id="form7" class="form-control" mdbActive>
+        <label for="form7">Longtitude</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-photo prefix grey-text"></i>
+        <input formControlName="image" type="text" id="image" class="form-control" mdbActive>
+        <label for="image">ภาพเหตุการณ์</label>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMi9NWFmeDi-VwprjaydFhXGN9toNy8yNUFzdXJsercb6txzFRlw" alt="">
+      </div>
+
+      <div class="md-form" style=" padding: 20px 5px 5px 15px">
+        <i class="fa fa-gratipay prefix grey-text"></i>
+        <input type="text" id="form3" class="form-control" mdbActive>
+        <label for="form3">อาการรับแจ้ง</label>
+      </div>
+    </div>
+    <br>
+
+
+    <div class="row border border-danger rounded" style=" padding: 20px 5px 5px 15px">
+      <div class="md-form">
+        <i class="fa fa-user-circle prefix grey-text"></i>
+        <input type="text" id="form3" class="form-control" mdbActive>
+        <label for="form3">รับแจ้งจาก</label>
+      </div>
+      <div class="md-form">
+        <i class="fa fa-user prefix grey-text"></i>
+        <input type="text" id="form3" class="form-control" mdbActive>
+        <label for="form3">ช่องทางการแจ้ง</label>
+      </div>
+      <div class="md-form">
+        <i class="fa fa-phone prefix grey-text"></i>
+        <input type="text" id="form3" class="form-control" mdbActive>
+        <label for="form3">หมายเลข</label>
+      </div>
+    </div>
+    <br>
+
+    <div class="row border border-danger rounded" style=" padding: 20px 5px 5px 15px">
+      <div class="md-form">
+        <i class="fa fa-user prefix grey-text"></i>
+        <input type="text" id="form3" class="form-control" mdbActive>
+        <label for="form3">ชื่อผู้ป่วย</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-envelope prefix grey-text"></i>
+        <input type="text" id="form2" class="form-control" mdbActive>
+        <label for="form2">อายุ</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-envelope prefix grey-text"></i>
+        <input type="text" id="form2" class="form-control" mdbActive>
+        <label for="form2">HN</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-envelope prefix grey-text"></i>
+        <input type="text" id="form2" class="form-control" mdbActive>
+        <label for="form2">เลข 13 หลัก</label>
+      </div>
+    </div>
+    <br>
+
+    <div class="md-form col-md-12" style=" padding: 20px 5px 5px 15px">
+      <i class="fa fa-gratipay prefix grey-text"></i>
+      <input type="text" id="form32" class="form-control" mdbActive>
+      <label for="form34">อาการแรกพบ</label>
+    </div>
+
+       <!-- ----------------------Vital1----------------------------------- -->
+       <div class="row border border-danger rounded" style=" padding: 20px 5px 5px 15px">
+        <div class="md-form">
+          <i class="fa fa-heartbeat prefix grey-text"></i>
+          <input type="text" id="form32" class="form-control" mdbActive>
+          <label for="form34">GCS</label>
+        </div>
+  
+        <div class="md-form">
+          <i class="fa fa-heartbeat prefix grey-text"></i>
+          <input type="text" id="form32" class="form-control" mdbActive>
+          <label for="form34">Pupil</label>
+        </div>
+  
+        <div class="md-form">
+          <i class="fa fa-heartbeat prefix grey-text"></i>
+          <input type="text" id="form32" class="form-control" mdbActive>
+          <label for="form34">O2sat</label>
+        </div>
+  
+        <div class="md-form">
+          <i class="fa fa-heartbeat prefix grey-text"></i>
+          <input type="text" id="form32" class="form-control" mdbActive>
+          <label for="form34">BP</label>
+        </div>
+  
+        <div class="md-form">
+          <i class="fa fa-heartbeat prefix grey-text"></i>
+          <input type="text" id="form32" class="form-control" mdbActive>
+          <label for="form34">Pulse</label>
+        </div>
+  
+        <div class="md-form">
+          <i class="fa fa-heartbeat prefix grey-text"></i>
+          <input type="text" id="form32" class="form-control" mdbActive>
+          <label for="form34">RR</label>
+        </div>
+  
+        <div class="md-form">
+          <i class="fa fa-heartbeat prefix grey-text"></i>
+          <input type="text" id="form32" class="form-control" mdbActive>
+          <label for="form34">Temperature</label>
+        </div>
+      </div>
+      <br>
+      <!-- ----------------------Vital1----------------------------------- -->
+      <!-- ----------------------Vital2----------------------------------- -->
+    <div class="row border border-danger rounded" style=" padding: 20px 5px 5px 15px">
+      <div class="md-form">
+        <i class="fa fa-heartbeat prefix grey-text"></i>
+        <input type="text" id="form32" class="form-control" mdbActive>
+        <label for="form34">GCS_2</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-heartbeat prefix grey-text"></i>
+        <input type="text" id="form32" class="form-control" mdbActive>
+        <label for="form34">Pupil_2</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-heartbeat prefix grey-text"></i>
+        <input type="text" id="form32" class="form-control" mdbActive>
+        <label for="form34">O2sat_2</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-heartbeat prefix grey-text"></i>
+        <input type="text" id="form32" class="form-control" mdbActive>
+        <label for="form34">BP_2</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-heartbeat prefix grey-text"></i>
+        <input type="text" id="form32" class="form-control" mdbActive>
+        <label for="form34">Pulse_2</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-heartbeat prefix grey-text"></i>
+        <input type="text" id="form32" class="form-control" mdbActive>
+        <label for="form34">RR_2</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-heartbeat prefix grey-text"></i>
+        <input type="text" id="form32" class="form-control" mdbActive>
+        <label for="form34">Temperature_2</label>
+      </div>
+    </div>
+    <br>
+    <!-- ----------------------Vital2----------------------------------- -->
+     <!-- ----------------------Time----------------------------------- -->
+     <div class="row border border-danger rounded" style=" padding: 20px 5px 5px 15px">
+      <div class="md-form">
+        <i class="fa fa-tag prefix grey-text"></i>
+        <input type="text" id="form32" class="form-control" mdbActive>
+        <label for="form34">เวลารับแจ้งเหตุ</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-tag prefix grey-text"></i>
+        <input type="text" id="form32" class="form-control" mdbActive>
+        <label for="form34">สั่งการ</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-tag prefix grey-text"></i>
+        <input type="text" id="form32" class="form-control" mdbActive>
+        <label for="form34">ออกจากฐาน</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-tag prefix grey-text"></i>
+        <input type="text" id="form32" class="form-control" mdbActive>
+        <label for="form34">ถึงที่เกิดเหตุ</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-tag prefix grey-text"></i>
+        <input type="text" id="form32" class="form-control" mdbActive>
+        <label for="form34">ออกจากที่เกิดเหตุ</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-tag prefix grey-text"></i>
+        <input type="text" id="form32" class="form-control" mdbActive>
+        <label for="form34">ถึง รพ.</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-tag prefix grey-text"></i>
+        <input type="text" id="form32" class="form-control" mdbActive>
+        <label for="form34">ถึงฐาน</label>
+      </div>
+    </div>
+    <br>
+    <!-- ----------------------Time----------------------------------- -->
+
+    <!-- ----------------------Kilo----------------------------------- -->
+    <div class="row border border-danger rounded" style=" padding: 20px 5px 5px 15px">
+      <div class="md-form">
+        <i class="fa fa-arrow-right prefix grey-text"></i>
+        <input type="text" id="form32" class="form-control" mdbActive>
+        <label for="form34">กม.เลขออกฐาน</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-arrow-right prefix grey-text"></i>
+        <input type="text" id="form32" class="form-control" mdbActive>
+        <label for="form34">กม.เลขที่เกิดเหตุ</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-arrow-right prefix grey-text"></i>
+        <input type="text" id="form32" class="form-control" mdbActive>
+        <label for="form34">กม.ถึงโรงพยาบาล</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-arrow-right prefix grey-text"></i>
+        <input type="text" id="form32" class="form-control" mdbActive>
+        <label for="form34">กม.ถึงฐาน</label>
+      </div>
+
+    </div>
+    <br>
+    <!-- ----------------------Kilo----------------------------------- -->
+    <div class="row border border-danger rounded" style=" padding: 20px 5px 5px 15px">
+      <div class="md-form">
+        <i class="fa fa-arrow-right prefix grey-text"></i>
+        <input type="text" id="form32" class="form-control" mdbActive>
+        <label for="form34">DDx. 5H5T</label>
+      </div>
+    </div>
+    <br>
+    <div class="row border border-danger rounded" style=" padding: 20px 5px 5px 15px">
+      <div class="md-form">
+        <i class="fa fa-pencil prefix grey-text"></i>
+        <textarea type="text" id="form8" class="md-textarea" style="height: 100px" mdbActive></textarea>
+        <label for="form8">Treatment / Drug</label>
+      </div>
+    </div>
+    <br>
+
+    <!-- ----------------------Team----------------------------------- -->
+    <div class="row border border-danger rounded" style=" padding: 20px 5px 5px 15px">
+      <div class="md-form">
+        <i class="fa fa-user-md prefix grey-text"></i>
+        <input type="text" id="form32" class="form-control" mdbActive>
+        <label for="form34">แพทย์</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-user prefix grey-text"></i>
+        <input type="text" id="form32" class="form-control" mdbActive>
+        <label for="form34">เจ้าหน้าที่ 2</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-user prefix grey-text"></i>
+        <input type="text" id="form32" class="form-control" mdbActive>
+        <label for="form34">เจ้าหน้าที่ 2</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-user prefix grey-text"></i>
+        <input type="text" id="form32" class="form-control" mdbActive>
+        <label for="form34">เจ้าหน้าที่ 3</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-user prefix grey-text"></i>
+        <input type="text" id="form32" class="form-control" mdbActive>
+        <label for="form34">พนักงานขับรถ</label>
+      </div>
+
+    </div>
+    <br>
+
+
+
+    <br>
+    <button class="btn btn-danger mb-2 waves-light" mdbWavesEffect type="submit">บันทึก / แก้ไข</button>
+  </form>
+</div>
