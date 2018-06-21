@@ -57,15 +57,15 @@
     <tbody>
 
       <!--First row-->
-      <tr *ngFor="let item of items | async" [ngClass]="{'text-danger':item.status === 'UnOpen'}">
+      <tr *ngFor="let item of items | async" [ngClass]="{'text-danger':item?.status === 'UnRead'}">
         <th scope="row">
-          <img src="{{ item.image }}" width="200px" height="120px" alt="" class="img-fluid">
+          <img src="{{ item?.report_image }}" width="200px" height="120px" alt="" class="img-fluid">
         </th>
-        <td >{{ item.scene }}</td>
-        <td>{{ item.clientTime | date: 'dd/MM/yyyy - HH:mm' }}</td>
-        <td>{{ item.telNumber }}</td>
-        <td>{{ item.locationDetail }}</td>
-        <td>{{ item.location.lat }} {{ item.location.lng }}</td>
+        <td >{{ item?.report_scene }}</td>
+        <td>{{ item?.report_time | date: 'dd/MM/yyyy - HH:mm' }}</td>
+        <td>{{ item?.report_telNumber }}</td>
+        <td>{{ item?.report_locationDetail }}</td>
+        <td>{{ item?.report_location.lat }} {{ item?.report_location.lng }}</td>
 
         <td>
           <a class="blue-text" (click)="onApprove(item.key)">
@@ -94,12 +94,12 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <img src="{{ item.image }}" height=50% class="img-fluid img-review">
+                                <img src="{{ item.report_image }}" height=50% class="img-fluid img-review">
                               </div>  
                               
                             <div class="col-md-6">
-                                <agm-map [latitude]="item.location.lat" [longitude]="item.location.lng" [zoom]="16">
-                                    <agm-marker [latitude]="item.location.lat" [longitude]="item.location.lng"></agm-marker>
+                                <agm-map [latitude]="item.report_location.lat" [longitude]="item.report_location.lng" [zoom]="16">
+                                    <agm-marker [latitude]="item.report_location.lat" [longitude]="item.report_location.lng"></agm-marker>
                                 </agm-map>
                               </div>
                               <!-- <div class="col-md-6">
@@ -215,7 +215,7 @@
               </div>
               <div class="col-md-9">
                 <div class="md-form form-sm">
-                  <input formControlName="image" [mdbValidate]=false mdbInputDirective type="text" id="form19" class="form-control">
+                  <input formControlName="report_image" [mdbValidate]=false mdbInputDirective type="text" id="form19" class="form-control">
                   <label for="form19">ภาพจุดเกิดเหตุ</label>
                 </div>
               </div>
@@ -224,31 +224,31 @@
 
             <div class="md-form form-sm">
               <i class="fa fa-eye prefix"></i>
-              <input formControlName="scene" [mdbValidate]=false mdbInputDirective type="text" id="form21" class="form-control">
+              <input formControlName="report_scene" [mdbValidate]=false mdbInputDirective type="text" id="form21" class="form-control">
               <label for="form21">เหตุการณ์</label>
             </div>
 
             <div class="md-form form-sm">
               <i class="fa fa-mobile prefix"></i>
-              <input formControlName="telNumber" [mdbValidate]=false mdbInputDirective type="tel" id="form20" class="form-control">
+              <input formControlName="report_telNumber" [mdbValidate]=false mdbInputDirective type="tel" id="form20" class="form-control">
               <label for="form20">เบอร์โทร</label>
             </div>
 
             <div class="md-form form-sm">
               <i class="fa fa-map-marker prefix" (click)="basicModal.show()"></i>
-              <input formControlName="location"  [mdbValidate]=false mdbInputDirective type="text" id="form22" class="form-control">
+              <input formControlName="report_location"  [mdbValidate]=false mdbInputDirective type="text" id="form22" class="form-control">
               <label for="form22">Marker </label>
             </div>
 
             <div class="md-form form-sm">
               <i class="fa fa-map prefix" (click)="basicModal.show()"></i>
-              <input formControlName="locationDetail" [mdbValidate]=false mdbInputDirective type="text" id="form23" class="form-control">
-              <label for="form22">สถานที่เกิดเหตุ </label>
+              <input formControlName="report_locationDetail" [mdbValidate]=false mdbInputDirective type="text" id="form23" class="form-control">
+              <label for="form23">สถานที่เกิดเหตุ </label>
             </div>
 
             <div class="md-form form-sm">
               <i class="fa fa-pencil prefix"></i>
-              <textarea formControlName="moreDetail" [mdbValidate]=false mdbInputDirective type="text" id="form8" class="md-textarea mb-0"></textarea>
+              <textarea formControlName="report_moreDetail" [mdbValidate]=false mdbInputDirective type="text" id="form8" class="md-textarea mb-0"></textarea>
               <label for="form8">รายละเอียด</label>
             </div>
           </div>
@@ -265,7 +265,7 @@
                     *ngIf="marker">
                   </agm-marker>
               </agm-map>
-              <h6>สถานที่เกิดเหตุ : {{ dispatch.locationDetail }}</h6>
+              <h6>สถานที่เกิดเหตุ : {{ locationDetail }}</h6>
               <h6>Latitude : {{ marker?.lat }}</h6>
               <h6>longitude : {{ marker?.lat }}</h6>
           </div>

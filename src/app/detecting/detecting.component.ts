@@ -6,7 +6,7 @@ import { AngularFireList } from 'angularfire2/database';
 
 import { Observable } from 'rxjs/Observable';
 
-import { Casedetail } from './../case-detail';
+import { DispatchClass } from '../interface';
 import { Team } from '../team';
 
 declare var google: any;
@@ -30,7 +30,7 @@ export class DetectingComponent implements OnInit {
   directionsService = new google.maps.DirectionsService;
   directionsDisplay = new google.maps.DirectionsRenderer;
 
-  casedetail: Casedetail[];
+  casedetail: DispatchClass[];
   selectCase;
 
   selectTeam: Team;
@@ -205,7 +205,7 @@ export class DetectingComponent implements OnInit {
   }
 
 
-  showCase(scense: Casedetail) {
+  showCase(scense: DispatchClass) {
     this.selectCase = scense;
     console.log(scense)
 
