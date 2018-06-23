@@ -11,111 +11,111 @@ import { DispatchClass } from '../interface';
 })
 export class ManagementComponent implements OnInit {
   itemRef: AngularFireObject<any>;
-  item : DispatchClass  ;
-  id ;
+  item: DispatchClass;
+  id;
 
   Form: FormGroup = this.builder.group({
-    key : [{value:'xxx-xxx-xxx',disabled: true}, Validators.required],
-    status : [null, Validators.required],
-    missionNumber: ['', Validators.required],
-    
-    teamName: ['', Validators.required],
-    teamCode: ['', Validators.required],
-    teamLevel : ['', Validators.required],
-    
-    scene_type: ['', Validators.required],
-    report_time: ['', Validators.required],
-    report_location: ['', Validators.required],
-    report_locationDetail: ['', Validators.required],
-    report_scene: ['', Validators.required],
-    report_image: ['', Validators.required],
-    report_symptom: ['', Validators.required],
-    report_moreDetail: ['', Validators.required],
-    
-    report_telNumber: ['', Validators.required],
-    report_Who: ['', Validators.required],
-    report_Way: ['', Validators.required],
+    key: [{ value: 'xxx-xxx-xxx', disabled: true }, Validators.required],
+    status: [null, Validators.required],
+    missionNumber: [''],
 
-    patient_Name: ['', Validators.required],
-    patient_Age: ['', Validators.required],
-    patient_HN: ['', Validators.required],
-    patient_ID: ['', Validators.required],
-    patient_image_ByTeam: ['', Validators.required],
+    teamName: [''],
+    teamCode: [''],
+    teamLevel: [''],
 
-    vitalsign1_symptom_first: ['', Validators.required],
-    vitalsign1_GSC: ['', Validators.required],
-    vitalsign1_pupil: ['', Validators.required],
-    vitalsign1_o2sat: ['', Validators.required],
-    vitalsign1_BP: ['', Validators.required],
-    vitalsign1_pulse: ['', Validators.required],
-    vitalsign1_RR: ['', Validators.required],
-    vitalsign1_temperature: ['', Validators.required],
-    vitalsign1_DTX: ['', Validators.required],
+    scene_type: [''],
+    report_time: [''],
+    report_location: [''],
+    report_locationDetail: [''],
+    report_scene: [''],
+    report_image: [''],
+    report_symptom: [''],
+    report_moreDetail: [''],
 
-    vitalsign2_symptom_second: ['', Validators.required],
-    vitalsign2_GSC: ['', Validators.required],
-    vitalsign2_pupil: ['', Validators.required],
-    vitalsign2_o2sat: ['', Validators.required],
-    vitalsign2_BP: ['', Validators.required],
-    vitalsign2_pulse: ['', Validators.required],
-    vitalsign2_RR: ['', Validators.required],
-    vitalsign2_temperature: ['', Validators.required],
-    vitalsign2_DTX: ['', Validators.required],
+    report_telNumber: [''],
+    report_Who: [''],
+    report_Way: [''],
 
-    time_report: ['', Validators.required],
-    time_command: ['', Validators.required],
-    time_depart: ['', Validators.required],
-    time_arrive_scene: ['', Validators.required],
-    time_leave_scene: ['', Validators.required],
-    time_arrive_hospital: ['', Validators.required],
-    time_arrive_end: ['', Validators.required],
+    patient_Name: [''],
+    patient_Age: [''],
+    patient_HN: [''],
+    patient_ID: [''],
+    patient_image_ByTeam: [''],
 
-    km_start: ['', Validators.required],
-    km_depart: ['', Validators.required],
-    km_hospital: ['', Validators.required],
-    km_end: ['', Validators.required],
+    vitalsign1_symptom_first: [''],
+    vitalsign1_GSC: [''],
+    vitalsign1_pupil: [''],
+    vitalsign1_o2sat: [''],
+    vitalsign1_BP: [''],
+    vitalsign1_pulse: [''],
+    vitalsign1_RR: [''],
+    vitalsign1_temperature: [''],
+    vitalsign1_DTX: [''],
 
-    diagnosis: ['', Validators.required],
-    treatment: ['', Validators.required],
-   
-    member_doctor: ['', Validators.required],
-    member_one: ['', Validators.required],
-    member_two: ['', Validators.required],
-    member_three: ['', Validators.required],
-    member_driver: ['', Validators.required],
+    vitalsign2_symptom_second: [''],
+    vitalsign2_GSC: [''],
+    vitalsign2_pupil: [''],
+    vitalsign2_o2sat: [''],
+    vitalsign2_BP: [''],
+    vitalsign2_pulse: [''],
+    vitalsign2_RR: [''],
+    vitalsign2_temperature: [''],
+    vitalsign2_DTX: [''],
+
+    time_report: [''],
+    time_command: [''],
+    time_depart: [''],
+    time_arrive_scene: [''],
+    time_leave_scene: [''],
+    time_arrive_hospital: [''],
+    time_arrive_end: [''],
+
+    km_start: [''],
+    km_depart: [''],
+    km_hospital: [''],
+    km_end: [''],
+
+    diagnosis: [''],
+    treatment: [''],
+
+    member_doctor: [''],
+    member_one: [''],
+    member_two: [''],
+    member_three: [''],
+    member_driver: [''],
 
   })
-  
-  constructor ( 
+
+  constructor(
     private builder: FormBuilder,
-    private activeRoute :ActivatedRoute,
-    private afDB :AngularFireDatabase
-   ) { 
-      this.id = this.activeRoute.snapshot.params['id'];
-      this.itemRef = afDB.object(`requests/${this.id}`);
-      this.itemRef.snapshotChanges().subscribe(action => {
+    private activeRoute: ActivatedRoute,
+    private afDB: AngularFireDatabase
+  ) {
+    this.id = this.activeRoute.snapshot.params['id'];
+    this.itemRef = afDB.object(`requests/${this.id}`);
+    this.itemRef.snapshotChanges().subscribe(action => {
 
-        this.item = action.payload.val();
-        // console.log(this.item.report_locationDetail)
-        this.onFormManagement(this.item);
+      this.item = action.payload.val();
+      // console.log(this.item.report_locationDetail)
+      this.onFormManagement(this.item);
 
-  
-      });
-    }
+
+    });
+  }
   ngOnInit() {
     // this.onFormManagement();
   }
-  onFormManagement(item){
+  onFormManagement(item) {
 
     const form = this.Form;
     form.controls['key'].setValue(this.id);
     form.controls['status'].setValue(item.status);
     form.controls['missionNumber'].setValue(item.missionNumber);
-   
+
     form.controls['teamName'].setValue(item.teamName);
     form.controls['teamCode'].setValue(item.teamCode);
     form.controls['teamLevel'].setValue(item.teamLevel);
-   
+
     form.controls['scene_type'].setValue(item.scene_type);
     form.controls['report_time'].setValue(item.report_time);
     form.controls['report_location'].setValue(item.report_location);
@@ -133,7 +133,7 @@ export class ManagementComponent implements OnInit {
     form.controls['patient_HN'].setValue(item.patient_HN);
     form.controls['patient_ID'].setValue(item.patient_ID);
     form.controls['patient_image_ByTeam'].setValue(item.patient_image_ByTeam);
-  
+
     form.controls['vitalsign1_symptom_first'].setValue(item.vitalsign1_symptom_first);
     form.controls['vitalsign1_GSC'].setValue(item.vitalsign1_GSC);
     form.controls['vitalsign1_pupil'].setValue(item.vitalsign1_pupil);
@@ -154,7 +154,7 @@ export class ManagementComponent implements OnInit {
     form.controls['vitalsign2_RR'].setValue(item.vitalsign2_RR);
     form.controls['vitalsign2_temperature'].setValue(item.vitalsign2_temperature);
     form.controls['vitalsign2_DTX'].setValue(item.vitalsign2_DTX);
-   
+
     form.controls['time_report'].setValue(item.time_report);
     form.controls['time_command'].setValue(item.time_command);
     form.controls['time_depart'].setValue(item.time_depart);
@@ -170,7 +170,7 @@ export class ManagementComponent implements OnInit {
 
     form.controls['diagnosis'].setValue(item.time_depart);
     form.controls['treatment'].setValue(item.time_depart);
-   
+
     form.controls['member_doctor'].setValue(item.member_doctor);
     form.controls['member_one'].setValue(item.member_one);
     form.controls['member_two'].setValue(item.member_two);
@@ -178,10 +178,12 @@ export class ManagementComponent implements OnInit {
     form.controls['member_driver'].setValue(item.member_driver);
 
   }
-  onSubmit(){
+  onSubmit() {
     console.log(this.Form.value)
-    
+    const itemsRef = this.afDB.list('requests');
+    var value = JSON.parse( JSON.stringify(this.Form.value ))
+    console.log(value)
+    itemsRef.update( this.id , value );
   }
-
 }
 
