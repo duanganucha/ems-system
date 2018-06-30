@@ -27,6 +27,8 @@ import { MapsComponent } from './maps/maps.component';
 import { ManagerComponent } from './manager/manager.component';
 import { Map2Component } from './map2/map2.component';
 import { ManagementComponent } from './management/management.component';
+import { ReversePipe } from './reverse.pipe';
+import { Map3Component } from './map3/map3.component';
 
 
 @NgModule({
@@ -45,7 +47,9 @@ import { ManagementComponent } from './management/management.component';
     MapsComponent,
     ManagerComponent,
     Map2Component,
-    ManagementComponent
+    ManagementComponent,
+    ReversePipe,
+    Map3Component
   ],
   imports: [
     BrowserModule,
@@ -68,6 +72,7 @@ import { ManagementComponent } from './management/management.component';
       { path: 'management/:id', component: ManagementComponent },
       { path: 'maps', component: MapsComponent },
       { path: 'maps2', component: Map2Component },
+      { path: 'map3', component: Map3Component },
       { path: 'teams', component: TeamsComponent }
     ])
   ],

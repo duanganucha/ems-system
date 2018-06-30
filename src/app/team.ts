@@ -5,6 +5,7 @@ export class Team {
     constructor(
         public key ,
         public code:number,
+        public number_ambulance:number,
         public name:string,
         public image :string,
         public detail:string,

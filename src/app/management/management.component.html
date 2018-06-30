@@ -1,4 +1,7 @@
 <div class="" style="padding: 5px 25px 25px 25px;">
+  <button type="button" class="btn btn-blue-grey  waves-light" (click)="onCancel()" mdbWavesEffect>
+    <i class="fa fa-step-backward pr-2"></i>ย้อนกลับ</button>
+
   <form [formGroup]="Form" autocomplete="off" (ngSubmit)="onSubmit()" class="modal-body mb-0">
 
     <div class="row border border-danger rounded" style=" padding: 20px 5px 5px 15px">
@@ -62,11 +65,11 @@
       <div class="md-form">
         <i class="fa fa-map-marker prefix grey-text"></i>
         <input formControlName="report_location" type="text" id="form6" class="form-control" mdbActive>
-        <label for="form6">พิกัด</label>
+        <label for="form6">พิกัด </label>
         <div id="map"></div>
       </div>
 
-      <div class="md-form">
+      <div class="md-form col-md-12">
         <i class="fa fa-map-marker prefix grey-text"></i>
         <input formControlName="report_locationDetail" type="text" id="form5" class="form-control" mdbActive>
         <label for="form5">สถานที่เกิดเหตุ</label>
@@ -79,23 +82,24 @@
         <label for="form7">เหตุการณ์รับแจ้ง</label>
       </div>
 
-      <div class="md-form">
-        <i class="fa fa-photo prefix grey-text"></i>
-        <input formControlName="report_image" type="text" id="image" class="form-control" mdbActive>
-        <label for="image">ภาพเหตุการณ์รับแจ้ง</label>
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMi9NWFmeDi-VwprjaydFhXGN9toNy8yNUFzdXJsercb6txzFRlw" alt="">
-      </div>
 
-      <div class="md-form" style=" padding: 20px 5px 5px 15px">
+      <div class="md-form" >
         <i class="fa fa-gratipay prefix grey-text"></i>
         <input formControlName="report_symptom" type="text" id="form3" class="form-control" mdbActive>
         <label for="form3">อาการรับแจ้ง</label>
       </div>
 
-      <div class="md-form" style=" padding: 20px 5px 5px 15px">
+      <div class="md-form" >
         <i class="fa fa-gratipay prefix grey-text"></i>
         <input formControlName="report_moreDetail" type="text" id="form3" class="form-control" mdbActive>
         <label for="form3">รายละเอียดอื่นๆ</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-photo prefix grey-text"></i>
+        <input formControlName="report_image" type="text" id="image" class="form-control" mdbActive>
+        <label for="image">ภาพเหตุการณ์รับแจ้ง</label>
+        <img src="{{ item?.report_image }}" width="200px" height="120px">
       </div>
 
     </div>
@@ -407,11 +411,22 @@
       </div>
 
     </div>
+    
     <br>
-
-
-
     <br>
-    <button class="btn btn-danger mb-2 waves-light" mdbWavesEffect type="submit">บันทึก / แก้ไข</button>
+    <div class="row">
+      <div class="col-md-4">
+        <button class="btn btn-danger waves-light" mdbWavesEffect type="submit">
+            <i class="fa fa-save pr-2" aria-hidden="true"></i>บันทึก / แก้ไข</button>
+      </div>
+      <div class="col-md-8 text-right">
+            <button type="button" class="btn btn-mdb-color waves-light" mdbWavesEffect (click)="onDeleteItem()">
+                <i class="fa fa-trash pr-2" aria-hidden="true"></i> ลบ</button>
+              <button type="button" class="btn btn-blue-grey  waves-light" (click)="onCancel()" mdbWavesEffect>
+                <i class="fa fa-close pr-2"></i>ยกเลิก/ย้อนกลับ</button>
+      </div>
+    </div>
+
   </form>
 </div>
+

@@ -6,9 +6,10 @@ export class DispatchClass {
 
         constructor(
       
-          public id_key :string,
+          public key :string,
           public status :any,
           public numberMission :string,
+          public missionLevel :string,
           
           public teamName: string,
           public teamCode: string,

@@ -49,6 +49,12 @@
             </div>
 
             <div class="md-form form-sm">
+              <i class="fa fa-ambulance prefix"></i>
+              <input formControlName="number_ambulance" [mdbValidate]=false mdbInputDirective type="text" id="form20" class="form-control">
+              <label for="form20">หมายเลขรถ</label>
+            </div>
+
+            <div class="md-form form-sm">
               <i class="fa fa-map prefix" (click)="basicModal.show()"></i>
               <input formControlName="location" [mdbValidate]=false mdbInputDirective type="text" id="form22" class="form-control">
               <label for="form22">ที่ตั้ง</label>

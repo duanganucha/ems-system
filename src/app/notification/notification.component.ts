@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx'
@@ -6,7 +6,6 @@ import { Router } from '@angular/router'
 import { AgmCoreModule } from '@agm/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Location } from '../../app/location'
-import { INTERNAL_BROWSER_DYNAMIC_PLATFORM_PROVIDERS } from '@angular/platform-browser-dynamic/src/platform_providers';
 
 import { DispatchClass } from '../../app/interface'
 
@@ -19,8 +18,7 @@ DispatchClass
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.scss']
 })
-export class NotificationComponent {
-
+export class NotificationComponent implements OnInit {
   @ViewChild('formNewNotify') formModal: { show: Function, hide: Function };
 
   itemsRef: AngularFireList<any>;
@@ -31,9 +29,9 @@ export class NotificationComponent {
   latInit: number = 15.1178138;
   lngInit: number = 104.3247774;
   marker: Location;
-  locationDetail :any;
+  locationDetail: any;
 
-  dispatch: DispatchClass ;
+  dispatch: DispatchClass;
 
   Form: FormGroup = this.builder.group({
     report_image: [null, [
@@ -52,11 +50,31 @@ export class NotificationComponent {
   constructor(private afDB: AngularFireDatabase, private router: Router, private builder: FormBuilder) {
 
     this.itemsRef = afDB.list('requests');
+
+    // this.items = afDB.list('requests', ref => ref.orderByChild('report_time')).snapshotChanges().map(result => {
+    //   return result.reverse();
+    // })
     this.items = this.itemsRef.snapshotChanges().map(changes => {
       return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     });
 
   }
+
+  editForm: FormGroup;
+  levelsMission : Array<string> = ['Emergency', 'Urgency', 'Non-Urgency', 'Dead']
+  levelsMission2  = {1:'Emergency', 2:'Urgency', 3:'Non-Urgency', 4:'Dead'}
+
+  scenes_type : Array<string> = ["ปวดท้อง/หลัง", "2. แพ้ ", "3. สัตว์กัด", "4. เลือดออก", "5. หายใจลำบาก/ติดขัด", "6. หัวใจหยุดเต้น", "7. เจ็บแน่นทรวงอก/หัวใจ", "8. สำลัก/อุดกั้นทางเดินหายใจ", "9. เบาหวาน", "10. ภาวะฉุกเฉินเหตุสิ่งแวดล้อม", "11. [เว้นว่าง]", "12. ปวดศีรษะ/ทางตา/หู/คอ/จมูก", "13. ภาวะทางจิตประสาท/อารมณ์", "14. พิษ/รับยาเกินขนาด", "15. มีครรภ์/คลอด/นรีเวช", "16. ชัก/มีสัญญานบอกเหตุการชัก", "17. ป่วย/อ่อนเพลีย", "18. อัมพาต กล้ามเนื้ออ่อนแรง/เฉียบพลัน", "19. ไม่รู้สติ/ไม่ตอบสนอง/หมดสติชั่ววูบ", "20. เด็ก (กุมารเวชกรรม)", "21. ถูกทำร้าย", "22. ไหม้/Burnไฟฟ้าช๊อต", "23. ตกน้ำ/บาดเจ็บทางน้ำ", "24. พลัดตกหกล้ม/อุบัติเหตุ/เจ็บปวด", "25. อุบัติเหตุยานยนต์"];
+
+  ngOnInit(): void {
+
+    this.editForm = this.builder.group({
+      missionLevel : null ,
+      scene_type : null,
+      report_locationDetail : ''
+    });
+  }
+
 
   onSubmit() {
     this.Form.controls['status'].setValue('UnRead');
@@ -68,17 +86,31 @@ export class NotificationComponent {
     this.formModal.hide();
   }
 
+  
+
   onDelete(item) {
     this.itemsRef.remove(item);
   }
 
-  OnManagement(form, item) {
-    this.itemsRef.update(item.key, { status: "Read" });
+  OnManagement(form, item: DispatchClass ) {
+    if (item.status == "UnRead") {
+      this.itemsRef.update(item.key, { status: "Read" });
+      console.log('status read')
+    }
     form.show();
+
+    this.editForm.controls['missionLevel'].setValue(item.missionLevel)
+    this.editForm.controls['scene_type'].setValue(item.scene_type)
+    this.editForm.controls['report_locationDetail'].setValue(item.report_locationDetail)
   }
 
-  onManageData(key) {
-    this.router.navigate(['/management', key]);
+  onEdit(item){
+    this.itemsRef.update(item.key , this.editForm.value )
+  }
+
+  onManageData(item :DispatchClass) {
+    this.onEdit(item);
+    this.router.navigate(['/management', item.key]);
   }
 
   onApprove(key) {
@@ -92,29 +124,6 @@ export class NotificationComponent {
   }
 
 
-  StreetViewPanorama(item) {
-    console.log(item.longitude)
-    console.log(item.latitude)
-
-    // var fenway = { lat: 42.345573, lng: -71.098326 };
-    var fenway = { lat: item.latitude, lng: item.longitude };
-
-    var map2 = new google.maps.Map(document.getElementById('map2'), {
-      center: fenway,
-      zoom: 10
-    });
-    var panorama = new google.maps.StreetViewPanorama(
-      document.getElementById('pano'), {
-        position: fenway,
-        pov: {
-          heading: 34,
-          pitch: 10
-        }
-      });
-    map2.setStreetView(panorama);
-
-  }
-
   onCreate(form) {
     this.onReset();
     form.show();
@@ -125,20 +134,21 @@ export class NotificationComponent {
     //   return Date.parse(b.date.toString()) - Date.parse(a.date.toString())
     // })
   }
+ 
   onSetMarker(event: any) {
 
     this.marker = new Location(event.coords.lat, event.coords.lng);
     // console.log(this.marker);
     const form = this.Form;
     form.controls['report_location'].setValue(this.marker);
-    
+
     var google_map_pos = new google.maps.LatLng(event.coords.lat, event.coords.lng);
     var google_maps_geocoder = new google.maps.Geocoder();
     google_maps_geocoder.geocode(
       { 'latLng': google_map_pos },
       (results, status) => {
         if (status == google.maps.GeocoderStatus.OK && results[0]) {
-          this.locationDetail  = results[0].formatted_address;
+          this.locationDetail = results[0].formatted_address;
           form.controls['report_locationDetail'].setValue(this.locationDetail);
         }
       }
@@ -169,10 +179,10 @@ export class NotificationComponent {
 //    export class DispatchClass {
 
 //     constructor(
-  
+
 //       public clienttime = Date.now(),
 //       public id_key: string,
-      
+
 //       public teamName: string,
 //       public teamLevel: string,
 //       public numberMision: string,
@@ -180,7 +190,7 @@ export class NotificationComponent {
 //       public locationDetail: string,
 //       public imageReport: string,
 //       public imageByTeam: string,
-      
+
 //       public scene_type :string,
 //       public scene_detail :string,
 
@@ -188,12 +198,12 @@ export class NotificationComponent {
 //       public reportWho: string,
 //       public reportWay: string,
 //       public reportNumber: string,
-  
+
 //       public patientName: string,
 //       public patientAge: string,
 //       public patientHN: string,
 //       public patientID: string,
-  
+
 //       public symptom_first: string,
 //       public vitalsign1_GSC: string,
 //       public vitalsign1_pupil: string,
@@ -202,7 +212,7 @@ export class NotificationComponent {
 //       public vitalsign1_pulse: number,
 //       public vitalsign1_RR: number,
 //       public vitalsign1_temperature: number,
-  
+
 //       public symptom_second: string,
 //       public vitalsign2_GSC: string,
 //       public vitalsign2_pupil: string,
@@ -211,7 +221,7 @@ export class NotificationComponent {
 //       public vitalsign2_pulse: number,
 //       public vitalsign2_RR: number,
 //       public vitalsign2_temperature: number,
-  
+
 //       public time_report: string,
 //       public time_command: string,
 //       public time_depart: string,
@@ -223,13 +233,13 @@ export class NotificationComponent {
 //       public km_depart: string,
 //       public km_hospital: string,
 //       public km_end: string,
-  
+
 //       public treatment: string,
 //       public member_doctor: string,
 //       public member_one: string,
 //       public member_two: string,
 //       public member_three: string,
 //       public member_driver: string
-  
+
 //     ) { }      
 // }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import { DispatchClass } from '../interface';
 
@@ -28,7 +28,7 @@ export class ManagementComponent implements OnInit {
     report_location: [''],
     report_locationDetail: [''],
     report_scene: [''],
-    report_image: [''],
+    report_image: ['https://www.universitycoop.com/c.4510185/site-dev/img/no_image_available.jpeg?resizeid=3&resizeh=600&resizew=600'],
     report_symptom: [''],
     report_moreDetail: [''],
 
@@ -89,6 +89,7 @@ export class ManagementComponent implements OnInit {
   constructor(
     private builder: FormBuilder,
     private activeRoute: ActivatedRoute,
+    private router: Router,
     private afDB: AngularFireDatabase
   ) {
     this.id = this.activeRoute.snapshot.params['id'];
@@ -179,11 +180,20 @@ export class ManagementComponent implements OnInit {
 
   }
   onSubmit() {
-    console.log(this.Form.value)
+    // console.log(this.Form.value)
     const itemsRef = this.afDB.list('requests');
     var value = JSON.parse( JSON.stringify(this.Form.value ))
-    console.log(value)
+    // console.log(value)
     itemsRef.update( this.id , value );
+  }
+
+  onDeleteItem(){
+    const itemsRef = this.afDB.list('requests');
+    itemsRef.remove( this.id );
+    this.router.navigate(['/notification']);
+  }
+  onCancel(){
+    this.router.navigate(['/notification']);
   }
 }
 

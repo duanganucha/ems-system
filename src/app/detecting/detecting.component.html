@@ -34,10 +34,10 @@
   <div class="row">
     <div class="col-md-3">
       <div class="card">
-        <img class="img-fluid" src="{{item?.image}}" alt="Card image cap">
-        <h5 class="card-title">เหตุการณ์ : {{item?.scene}} </h5>
-        <p class="card-text">เบอร์โทร : {{ item?.telNumber }}</p>
-        <p class="card-text pb-5">สถานที่เกิดเหตุ : {{ item?.locationDetail}}</p>
+        <img class="img-fluid" src="{{item?.report_image}}" alt="Card image cap">
+        <h5 class="card-title">เหตุการณ์ : {{item?.report_scene}} </h5>
+        <p class="card-text">เบอร์โทร : {{ item?.report_telNumber }}</p>
+        <p class="card-text pb-5">สถานที่เกิดเหตุ : {{ item?.report_locationDetail}}</p>
         <a class="btn btn-primary waves-light" mdbWavesEffect (click)="showCase(item)">เลือก</a>
       </div>
     </div>
@@ -67,7 +67,9 @@
         <div class="col-sm">
           <button type="button" class="btn btn-danger btn-lg " (click)="routePath()">หาเส้นทาง</button>
           <button type="button" class="btn btn-primary btn-lg " (click)="autoSearchPath()">หาเส้นทางอัติโนมัติ</button>
-          <button type="button" class="btn btn-primary btn-lg " (click)="orderTeam()">เลือกสั่งการ</button>
+          <button type="button" class="btn btn-primary btn-lg " (click)="directionForm(directionModal)">เลือกสั่งการ</button>
+          <button type="button" class="btn btn-primary btn-lg " (click)="onMonitoring()">Monitoring</button>
+
         </div>
       </div>
     </div>
@@ -79,7 +81,7 @@
         <div class="container">
           <div class="row">
             <div class="alert alert-success col-sm-3">
-              ปลายทาง : {{ selectCase?.locationDetail }}
+              ปลายทาง : {{ selectCase?.report_scene }}
             </div>
             <div class="alert alert-success col-sm-1">
               ==>>
@@ -99,10 +101,10 @@
         <div id="right-panel"></div>
       </div>
 
-      <div>
+      <!-- <div>
         <div id="pano"></div>
         <div id="map2"></div>
-      </div>
+      </div> -->
 
 
 
@@ -115,63 +117,160 @@
 
 <!-- ----------------------------------------- -->
 
-<!--Section: Products v.2-->
-<section class="text-center pb-3 my-5">
-  <!--Section heading-->
-  <h1 class="font-weight-bold text-center h1 py-5">Our bestsellers</h1>
-  <!--Section description-->
-  <p class="grey-text pb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, error amet numquam iure provident voluptate esse quasi,
-    veritatis totam voluptas nostrum quisquam eum porro a pariatur accusamus veniam.</p>
-  <!--Grid row-->
-  <div class="row">
-    <!--Grid column-->
-    <div class="col-lg-4 col-md-12 mb-3">
-      <!--Card-->
-      <div class="card card-cascade wider card-ecommerce">
-        <!--Card image-->
-        <div class="view overlay waves-light" mdbWavesEffect>
-          <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/img (55).jpg" class="img-fluid" alt="sample photo">
-          <a>
-            <div class="mask rgba-white-slight"></div>
-          </a>
-        </div>
-        <!--Card image-->
-        <!--Card content-->
-        <div class="card-body text-center no-padding">
-          <!--Category & Title-->
-          <a href="" class="text-muted">
-            <h5>Camera</h5>
-          </a>
-          <h4 class="card-title">
-            <strong>
-              <a href="">GoPro</a>
-            </strong>
-          </h4>
-          <!--Description-->
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing minima veniam elit.</p>
-          <!--Card footer-->
-          <div class="card-footer">
-            <span class="float-left font-weight-bold">
-              <strong>1439$</strong>
-            </span>
-            <span class="float-right">
-              <a class="" data-toggle="tooltip" data-placement="top" title="Quick Look">
-                <i class="fa fa-eye grey-text ml-3"></i>
-              </a>
-              <a class="" data-toggle="tooltip" data-placement="top" title="Add to Wishlist">
-                <i class="fa fa-heart grey-text ml-3"></i>
-              </a>
-            </span>
-          </div>
-        </div>
-        <!--Card content-->
+<div mdbModal #directionModal="mdb-modal" class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-full-height modal-right" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100" id="myModalLabel">ดำเนินการ</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="fluid.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
       </div>
-      <!--Card-->
+      <div class="modal-body">
+        <ul class="list-group z-depth-0">
+
+          <li class="list-group-item justify-content-between">
+            <span class="badge badge-primary badge-pill">location</span>
+            {{ item?.report_locationDetail }}
+          </li>
+          <li class="list-group-item justify-content-between">
+            <span class="badge badge-primary badge-pill">1</span>
+            {{ item?.report_scene }}
+          </li>
+        </ul>
+
+        <div class="modal-body mb-0">
+          <div class="row">
+            <div *ngFor="let team of teams | async">
+              <button (click)="onSelectTeam(team)" *ngIf=" team.status == 'isReady'" class="btn btn-blue-grey mb-2 waves-light">{{ team.name }}
+                <i class="fa fa-send ml-1"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="md-form form-sm">
+            <i class="fa fa-ambulance prefix"></i>
+            <input mdbInputDirective type="text" id="form19" class="form-control">
+            <label for="form19">{{ selectTeam?.name }}</label>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary waves-light" data-dismiss="modal" (click)="fluid.hide()" mdbWavesEffect>Close</button>
+        <button type="button" class="btn btn-primary waves-light" mdbWavesEffect>Save changes</button>
+      </div>
     </div>
-    <!--Grid column-->
   </div>
-  <!--Grid row-->
-</section>
-<!--Section: Products v.2-->
+</div>
 
 
+<button type="button" class="btn btn-outline-primary waves-light" (click)="panoModalShow()" mdbWavesEffect>Panorama Map</button>
+
+<div mdbModal #panoModal="mdb-modal" class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-fluid modal-notify modal-success" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="heading lead">Panorama Map</p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="panoModal.hide()">
+          <span aria-hidden="true" class="white-text">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <i class="fa fa-ambulance fa-4x mb-3 animated rotateIn"></i>
+          <p>{{ item?.report_locationDetail}}</p>
+        </div>
+      </div>
+      <div>
+        <div id="pano"></div>
+        <div id="map2"></div>
+      </div>
+
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-primary waves-light" mdbWavesEffect>Save changes</button>
+        <a type="button" class="btn btn-outline-secondary" data-dismiss="modal" (click)="panoModal.hide()" mdbWavesEffect>Close</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div mdbModal #monitoringModal="mdb-modal" class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-fluid modal-notify modal-success" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="heading lead">Panorama Map</p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="monitoringModal.hide()">
+          <span aria-hidden="true" class="white-text">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="row">
+
+              <div class="col-md-8">
+                  <div>
+                      <img src="https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/m9mFfKM/advanced-emergency-medical-technician-provide-critical-care-to-patient-in-ambulance-using-variety-of-modern-equipment-for-life-support_vdsvy4hdx__F0000.png"
+                          alt="" width="100%">
+                  </div>
+                  <div>
+                      <agm-map [latitude]=" item?.report_location.lat " [longitude]=" item?.report_location.lng " [zoom]=13>
+                          <agm-marker 
+                          [latitude]=" item?.report_location.lat " 
+                          [longitude]=" item?.report_location.lng "
+                          [iconUrl]="icon">
+                      </agm-marker>
+                      </agm-map>
+                  </div>
+               
+              </div>
+          
+              <div class="col-md-4">
+                  <div class="list-card">
+          
+                      <a class="btn btn-blue ">
+                          <h6 class="card-title">GCS</h6>
+                          <h1>E3V4M5</h1>
+                          Coma score</a>
+          
+                      <a class="btn btn-blue ">
+                          <h6 class="card-title">Pulse</h6>
+                          <h1>84</h1>
+                          ชีพจร</a>
+          
+                      <a class="btn btn-blue">
+                          <h6 class="card-title">RR</h6>
+                          <h1>24</h1>
+                          หายใจ</a>
+                      <a class="btn btn-blue ">
+                          <h6 class="card-title">BP</h6>
+                          <h1>120/60</h1>
+                          ความดันโลหิต</a>
+                      <a class="btn btn-blue">
+                          <h6 class="card-title">Temp</h6>
+                          <h1>38.4</h1>
+                          อุณหภมูมิ</a>
+                      <a class="btn btn-blue">
+                          <h6 class="card-title">O2</h6>
+                          <h1>24</h1>
+                          O2 sat</a>
+                      <a class="btn btn-blue ">
+                          <h6 class="card-title">DTX</h6>
+                          <h1>129 mg%</h1>
+                          Blood Sugar</a>
+                  </div>
+              </div>
+          
+          </div>
+
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-primary waves-light" mdbWavesEffect>Save changes</button>
+        <a type="button" class="btn btn-outline-secondary" data-dismiss="modal" (click)="panoModal.hide()" mdbWavesEffect>Close</a>
+      </div>
+    </div>
+  </div>
+</div>

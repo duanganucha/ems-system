@@ -39,11 +39,13 @@ export class TeamsComponent implements OnInit {
       Validators.pattern(/(https?:\/\/.*\.(?:png|jpg))/i)
     ]],
     name: [null, Validators.required],
+    number_ambulance: [null, Validators.required],
     location: [null, Validators.required],
     detail: [null, Validators.required],
     level: [null, Validators.required]
   })
 
+  
   constructor(
     private builder: FormBuilder,
     private afDB: AngularFireDatabase
@@ -51,11 +53,6 @@ export class TeamsComponent implements OnInit {
 
     this.itemsRef = this.afDB.list('/teams');
     this.items = this.afDB.list('teams').valueChanges();
-
-    // this.items = this.itemsRef.snapshotChanges().map(changes => {
-
-    //   return changes.map(c => ({ key: c.payload.key, ...c.payload.val() })) ;
-    // });
 
   }
   click(item) {
@@ -92,6 +89,8 @@ export class TeamsComponent implements OnInit {
     }
   }
 
+
+
   onEditForm(team: Team) {
     this.checkCreate = "update"
     this.edit_check = true
@@ -101,6 +100,7 @@ export class TeamsComponent implements OnInit {
     form.controls['image'].setValue(team.image);
     form.controls['code'].setValue(team.code);
     form.controls['name'].setValue(team.name);
+    form.controls['number_ambulance'].setValue(team.number_ambulance);
     form.controls['level'].setValue(team.level);
     this.marker = team.location;
     form.controls['location'].setValue(team.location);

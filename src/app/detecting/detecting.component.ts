@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
@@ -8,6 +8,8 @@ import { Observable } from 'rxjs/Observable';
 
 import { DispatchClass } from '../interface';
 import { Team } from '../team';
+import { FormGroup } from '@angular/forms';
+import { last } from 'rxjs-compat/operator/last';
 
 declare var google: any;
 
@@ -19,12 +21,16 @@ declare var google: any;
 })
 export class DetectingComponent implements OnInit {
 
+  @ViewChild('direction') directionModal: { show: Function, hide: Function };
+  @ViewChild('panoModal') panoModal: { show: Function, hide: Function };
+  @ViewChild('monitoringModal') monitoringModal: { show: Function, hide: Function };
+
   itemRef: AngularFireObject<any>;
 
   itemRefTeam: AngularFireList<any>;
   teams: Observable<Team[]>;
 
-  item: Item;
+  item: DispatchClass;
   id;
 
   directionsService = new google.maps.DirectionsService;
@@ -54,6 +60,8 @@ export class DetectingComponent implements OnInit {
       this.item = action.payload.val();
       console.log(this.item)
 
+      this.StreetViewPanorama(this.item.report_location);
+
     });
 
     this.itemRefTeam = this.afDB.list('/teams');
@@ -67,7 +75,6 @@ export class DetectingComponent implements OnInit {
   ngOnInit() {
 
     this.MapStart();
-    this.StreetViewPanorama();
 
   }
 
@@ -87,7 +94,7 @@ export class DetectingComponent implements OnInit {
     // this.path1 = this.selectCase.name
     // this.path2 = this.selectTeam.location 
     this.path1 = this.selectTeam.location  //ทีมช่วยเหลือ
-    this.path2 = this.item.location //ปลายทาง
+    this.path2 = this.item.report_location //ปลายทาง
 
     this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay)
   }
@@ -143,7 +150,7 @@ export class DetectingComponent implements OnInit {
 
     // console.log(this.teamRoute_val.location)
     this.path1 = value.location  //ทีมช่วยเหลือ
-    this.path2 = this.item.location //ปลายทาง
+    this.path2 = this.item.report_location //ปลายทาง
 
     this.directionsService.route({
       origin: this.path1,
@@ -182,15 +189,30 @@ export class DetectingComponent implements OnInit {
 
   }
 
+  panoModalShow(){
+    this.panoModal.show();
+
+    this.StreetViewPanorama(this.item.report_location);
 
 
-  StreetViewPanorama() {
+    // var report_location : {
+    //   lat : 1,
+    //   lng : 2
+    // }
+    // const itemsRef = this.afDB.list('positions');
+    // itemsRef.update(this.id,report_location);
+
+  }
+
+
+  StreetViewPanorama(report_location) {
     // var fenway = { lat: 42.345573, lng: -71.098326 };
-    var fenway = { lat: 15.1158148, lng: 104.3205983 };
+    var fenway = report_location ;
+    console.log(report_location)
 
     var map2 = new google.maps.Map(document.getElementById('map2'), {
       center: fenway,
-      zoom: 10
+      zoom: 16
     });
     var panorama = new google.maps.StreetViewPanorama(
       document.getElementById('pano'), {
@@ -213,14 +235,15 @@ export class DetectingComponent implements OnInit {
 
   onSelectTeam(team: Team) {
     this.selectTeam = team;
-    console.log(this.selectTeam)
-
+    console.log(this.selectTeam.name)
   }
 
-  orderTeam(){
-    console.log("order team and go to Monotoring case")  
-    this.router.navigate(['/monitoring', this.id]);
+  directionForm(form){
+    form.show();
+  }
 
+  onMonitoring(){
+    this.monitoringModal.show();
   }
 }
 
