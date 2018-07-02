@@ -18,10 +18,12 @@ export class ManagementComponent implements OnInit {
     key: [{ value: 'xxx-xxx-xxx', disabled: true }, Validators.required],
     status: [null, Validators.required],
     missionNumber: [''],
+    missionStatus: [''],
 
-    teamName: [''],
-    teamCode: [''],
-    teamLevel: [''],
+    team_Name: [''],
+    team_Code: [''],
+    team_AmbulanceNumber:[''],
+    team_Level: [''],
 
     scene_type: [''],
     report_time: [''],
@@ -46,7 +48,8 @@ export class ManagementComponent implements OnInit {
     vitalsign1_GSC: [''],
     vitalsign1_pupil: [''],
     vitalsign1_o2sat: [''],
-    vitalsign1_BP: [''],
+    vitalsign1_BP_Diastolic: [''],
+    vitalsign1_BP_Systolic: [''],
     vitalsign1_pulse: [''],
     vitalsign1_RR: [''],
     vitalsign1_temperature: [''],
@@ -56,7 +59,8 @@ export class ManagementComponent implements OnInit {
     vitalsign2_GSC: [''],
     vitalsign2_pupil: [''],
     vitalsign2_o2sat: [''],
-    vitalsign2_BP: [''],
+    vitalsign2_BP_Diastolic: [''],
+    vitalsign2_BP_Systolic: [''],
     vitalsign2_pulse: [''],
     vitalsign2_RR: [''],
     vitalsign2_temperature: [''],
@@ -112,10 +116,12 @@ export class ManagementComponent implements OnInit {
     form.controls['key'].setValue(this.id);
     form.controls['status'].setValue(item.status);
     form.controls['missionNumber'].setValue(item.missionNumber);
+    form.controls['missionStatus'].setValue(item.missionStatus);
 
-    form.controls['teamName'].setValue(item.teamName);
-    form.controls['teamCode'].setValue(item.teamCode);
-    form.controls['teamLevel'].setValue(item.teamLevel);
+    form.controls['team_Name'].setValue(item.team_Name);
+    form.controls['team_Code'].setValue(item.team_Code);
+    form.controls['team_AmbulanceNumber'].setValue(item.team_AmbulanceNumber);
+    form.controls['team_Level'].setValue(item.team_Level);
 
     form.controls['scene_type'].setValue(item.scene_type);
     form.controls['report_time'].setValue(item.report_time);
@@ -139,18 +145,19 @@ export class ManagementComponent implements OnInit {
     form.controls['vitalsign1_GSC'].setValue(item.vitalsign1_GSC);
     form.controls['vitalsign1_pupil'].setValue(item.vitalsign1_pupil);
     form.controls['vitalsign1_o2sat'].setValue(item.vitalsign1_o2sat);
-    form.controls['vitalsign1_BP'].setValue(item.vitalsign1_BP);
+    form.controls['vitalsign1_BP_Diastolic'].setValue(item.vitalsign1_BP_Diastolic);
+    form.controls['vitalsign1_BP_Systolic'].setValue(item.vitalsign1_BP_Systolic);
     form.controls['vitalsign1_pulse'].setValue(item.vitalsign1_pulse);
     form.controls['vitalsign1_RR'].setValue(item.vitalsign1_RR);
     form.controls['vitalsign1_temperature'].setValue(item.vitalsign1_temperature);
     form.controls['vitalsign1_DTX'].setValue(item.vitalsign1_DTX);
 
-
     form.controls['vitalsign2_symptom_second'].setValue(item.vitalsign2_symptom_second);
     form.controls['vitalsign2_GSC'].setValue(item.vitalsign2_GSC);
     form.controls['vitalsign2_pupil'].setValue(item.vitalsign2_pupil);
     form.controls['vitalsign2_o2sat'].setValue(item.vitalsign2_o2sat);
-    form.controls['vitalsign2_BP'].setValue(item.vitalsign2_BP);
+    form.controls['vitalsign2_BP_Diastolic'].setValue(item.vitalsign2_BP_Diastolic);
+    form.controls['vitalsign2_BP_Systolic'].setValue(item.vitalsign2_BP_Systolic);
     form.controls['vitalsign2_pulse'].setValue(item.vitalsign2_pulse);
     form.controls['vitalsign2_RR'].setValue(item.vitalsign2_RR);
     form.controls['vitalsign2_temperature'].setValue(item.vitalsign2_temperature);

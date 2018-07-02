@@ -19,8 +19,14 @@
 
       <div class="md-form">
         <i class="fa fa-list prefix grey-text"></i>
-        <input formControlName="missionNumber" type="text" id="form3" class="form-control" mdbActive>
-        <label for="form3">เลขปฏิบัติการ</label>
+        <input formControlName="missionStatus" type="text" id="status" class="form-control" mdbActive>
+        <label for="status">สถานะปฏิบัติการ</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-list prefix grey-text"></i>
+        <input formControlName="missionNumber" type="text" id="missionNumber" class="form-control" mdbActive>
+        <label for="missionNumber">เลขปฏิบัติการ</label>
       </div>
     </div>
 
@@ -28,19 +34,24 @@
 
       <div class="md-form">
         <i class="fa fa-ambulance prefix grey-text"></i>
-        <input formControlName="teamCode" type="text" id="form1" class="form-control" mdbActive>
-        <label for="form1">รหัสหน่วย</label>
+        <input formControlName="team_Code" type="text" id="teamCode" class="form-control" mdbActive>
+        <label for="teamCode">รหัสหน่วย</label>
+      </div>
+      <div class="md-form">
+        <i class="fa fa-ambulance prefix grey-text"></i>
+        <input formControlName="team_AmbulanceNumber" type="text" id="form1" class="form-control" mdbActive>
+        <label for="form1">คันที่</label>
       </div>
 
       <div class="md-form">
         <i class="fa fa-ambulance prefix grey-text"></i>
-        <input formControlName="teamName" type="text" id="form1" class="form-control" mdbActive>
+        <input formControlName="team_Name" type="text" id="form1" class="form-control" mdbActive>
         <label for="form1">หน่วยปฏิบัติ</label>
       </div>
 
       <div class="md-form">
         <i class="fa fa-ambulance prefix grey-text"></i>
-        <input formControlName="teamLevel" type="text" id="form1" class="form-control" mdbActive>
+        <input formControlName="team_Level" type="text" id="form1" class="form-control" mdbActive>
         <label for="form1">ระดับหน่วยปฏิบัติ</label>
       </div>
 
@@ -156,7 +167,7 @@
         <i class="fa fa-photo prefix grey-text"></i>
         <input formControlName="patient_image_ByTeam" type="text" id="image" class="form-control" mdbActive>
         <label for="image">ภาพเหตุการณ์จริง</label>
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMi9NWFmeDi-VwprjaydFhXGN9toNy8yNUFzdXJsercb6txzFRlw" alt="">
+        <img src="{{ item?.patient_image_ByTeam }}" width="200px" height="120px">
       </div>
     </div>
 
@@ -192,11 +203,17 @@
         <input formControlName="vitalsign1_o2sat" type="number" id="form32" class="form-control" mdbActive>
         <label for="form34">O2sat</label>
       </div>
+     
+      <div class="md-form">
+        <i class="fa fa-heartbeat prefix grey-text"></i>
+        <input formControlName="vitalsign1_BP_Diastolic" type="text" id="form32" class="form-control" mdbActive>
+        <label for="form34">BP_Diastolic</label>
+      </div>
 
       <div class="md-form">
         <i class="fa fa-heartbeat prefix grey-text"></i>
-        <input formControlName="vitalsign1_BP" type="text" id="form32" class="form-control" mdbActive>
-        <label for="form34">BP</label>
+        <input formControlName="vitalsign1_BP_Systolic" type="text" id="form32" class="form-control" mdbActive>
+        <label for="form34">BP_Systolic</label>
       </div>
 
       <div class="md-form">
@@ -251,11 +268,17 @@
             <input formControlName="vitalsign2_o2sat" type="number" id="form32" class="form-control" mdbActive>
             <label for="form34">O2sat2_2</label>
           </div>
-    
+        
           <div class="md-form">
             <i class="fa fa-heartbeat prefix grey-text"></i>
-            <input formControlName="vitalsign2_BP" type="text" id="form32" class="form-control" mdbActive>
-            <label for="form34">BP2</label>
+            <input formControlName="vitalsign2_BP_Diastolic" type="text" id="form32" class="form-control" mdbActive>
+            <label for="form34">BP_Diastolic</label>
+          </div>
+
+          <div class="md-form">
+            <i class="fa fa-heartbeat prefix grey-text"></i>
+            <input formControlName="vitalsign2_BP_Systolic" type="text" id="form32" class="form-control" mdbActive>
+            <label for="form34">BP_Systolic</label>
           </div>
     
           <div class="md-form">

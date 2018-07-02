@@ -9,7 +9,6 @@ import { Observable } from 'rxjs/Observable';
 import { DispatchClass } from '../interface';
 import { Team } from '../team';
 import { FormGroup } from '@angular/forms';
-import { last } from 'rxjs-compat/operator/last';
 
 declare var google: any;
 
@@ -26,11 +25,11 @@ export class DetectingComponent implements OnInit {
   @ViewChild('monitoringModal') monitoringModal: { show: Function, hide: Function };
 
   itemRef: AngularFireObject<any>;
+  item: DispatchClass;
 
   itemRefTeam: AngularFireList<any>;
   teams: Observable<Team[]>;
 
-  item: DispatchClass;
   id;
 
   directionsService = new google.maps.DirectionsService;
@@ -55,12 +54,14 @@ export class DetectingComponent implements OnInit {
 
     this.id = this.activeRoute.snapshot.params['id'];
     this.itemRef = afDB.object(`requests/${this.id}`);
+    console.log(this.itemRef)
     this.itemRef.snapshotChanges().subscribe(action => {
 
       this.item = action.payload.val();
       console.log(this.item)
 
       this.StreetViewPanorama(this.item.report_location);
+
 
     });
 
@@ -142,15 +143,11 @@ export class DetectingComponent implements OnInit {
     });
 
   }
- 
-  myArray = [];
-  
-
+  calRouteArray = [];
   routePath2(key,value) {
-
     // console.log(this.teamRoute_val.location)
     this.path1 = value.location  //ทีมช่วยเหลือ
-    this.path2 = this.item.report_location //ปลายทาง
+    this.path2 = this.item.report_location //จุดเกิดเหตุ
 
     this.directionsService.route({
       origin: this.path1,
@@ -176,9 +173,9 @@ export class DetectingComponent implements OnInit {
            time :  response.routes[0].legs[0].duration.text 
           }
         
-        this.myArray.push(distance)
+        this.calRouteArray.push(distance)
 
-        console.log('distance = ' + JSON.stringify(this.myArray))
+        console.log('distance = ' + JSON.stringify(this.calRouteArray))
 
       } else {
         window.alert('Directions request failed due to ' + status);
@@ -191,17 +188,6 @@ export class DetectingComponent implements OnInit {
 
   panoModalShow(){
     this.panoModal.show();
-
-    this.StreetViewPanorama(this.item.report_location);
-
-
-    // var report_location : {
-    //   lat : 1,
-    //   lng : 2
-    // }
-    // const itemsRef = this.afDB.list('positions');
-    // itemsRef.update(this.id,report_location);
-
   }
 
 

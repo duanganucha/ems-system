@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ClassTeam } from '../app.interface';
 import { Observable } from 'rxjs/Observable';
@@ -16,13 +16,14 @@ import { Team } from '../team';
   templateUrl: './teams.component.html',
   styleUrls: ['./teams.component.scss']
 })
-export class TeamsComponent implements OnInit {
+export class TeamsComponent   {
 
   @ViewChild('form') formModal: { show: Function, hide: Function };
   @ViewChild('deleteModal') deleteModal: { show: Function, hide: Function };
-
-  itemsRef: AngularFireList<any>;
-  items: Observable<any[]>;
+  itemRefTeam: AngularFireList<any>;
+  teams: Observable<Team[]>;
+  // itemsRef: AngularFireList<any>;
+  // items: Observable<any[]>;
   key;
 
   lat: number = 15.1178138;
@@ -51,15 +52,16 @@ export class TeamsComponent implements OnInit {
     private afDB: AngularFireDatabase
   ) {
 
-    this.itemsRef = this.afDB.list('/teams');
-    this.items = this.afDB.list('teams').valueChanges();
+    // this.itemRefTeam = this.afDB.list('/teams');
+    // this.items = this.afDB.list('teams').valueChanges();
+    // console.log(this.items)
 
+    this.itemRefTeam = this.afDB.list('/teams');
+    this.teams = this.itemRefTeam.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    });
   }
-  click(item) {
-    console.log(item)
-  }
-  ngOnInit() {
-  }
+ 
 
   onSetMarker(event: any) {
     this.marker = new Location(event.coords.lat, event.coords.lng);
@@ -95,7 +97,7 @@ export class TeamsComponent implements OnInit {
     this.checkCreate = "update"
     this.edit_check = true
     this.key = team.key;
-    console.log(team.key)
+    console.log(team)
     const form = this.Form;
     form.controls['image'].setValue(team.image);
     form.controls['code'].setValue(team.code);

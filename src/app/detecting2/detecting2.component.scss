@@ -1,0 +1,51 @@
+#map {
+    width: 90%;
+    height: 320px;
+  }
+  #map2, #pano {
+    float: left;
+  
+    width: 50%;
+    height: 500px;
+    
+  }
+  #map2-team, #pano-team {
+    float: left;
+  
+    width: 50%;
+    height: 300px;
+    
+  }
+
+  #right-panel {
+    font-family: 'Roboto','sans-serif';
+    line-height: 30px;
+    padding-left: 5px;
+  }
+  
+  #right-panel select, #right-panel input {
+    font-size: 10px;
+  }
+  
+  #right-panel select {
+    width: 100%;
+  }
+  
+  #right-panel i {
+    font-size: 10px;
+  }
+  #right-panel {
+    float: right;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+  }
+  
+  #right-panel{
+    background-color: rgb(191, 222, 243);
+  }
+  
+  #floating-panel{
+  
+    background-color: rgb(191, 222, 243);
+  }

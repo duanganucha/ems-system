@@ -1,0 +1,13 @@
+<h2>AGM map firebase </h2>
+<agm-map 
+(mapClick)="onSetMarker($event)"
+[latitude]="position.lat" 
+[longitude]="position.lng" 
+[zoom]="zoom">
+    <agm-marker [latitude]="position.lat" [longitude]="position.lng"></agm-marker>
+  </agm-map>
+
+
+
+
+  <li>{{ item | json}}</li>

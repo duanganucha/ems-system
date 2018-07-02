@@ -90,7 +90,7 @@
                   </agm-marker>
               </agm-map>
               <h5>Latitude : {{ marker?.lat }}</h5>
-              <h5>longitude : {{ marker?.lat }}</h5>
+              <h5>longitude : {{ marker?.lng }}</h5>
           </div>
         </div>
 
@@ -113,7 +113,7 @@
 
 <h3>หน่วยที่พร้อมให้บริการ</h3>
 <div class=" hr-box row">
-  <div class="col-md-3" *ngFor="let team of items | async">
+  <div class="col-md-3" *ngFor="let team of teams | async">
     <div class="card myStatus " *ngIf=" team.status == 'isReady'">
       <img class="img-fluid" [src]="team.image " >
       <li class="list-group-item">หน่วย : {{ team.name }} </li>
@@ -135,7 +135,7 @@
 
 <h3>หน่วยทั้งหมด</h3>
 <div class=" hr-box row">
-  <div class="col-md-3" *ngFor="let team of items | async">
+  <div class="col-md-3" *ngFor="let team of teams | async">
     <div class="card ">
       <img class="img-fluid" [src]="team.image " >
       <li class="list-group-item">หน่วย : {{ team.name }} </li>

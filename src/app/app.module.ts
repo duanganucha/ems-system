@@ -29,6 +29,8 @@ import { Map2Component } from './map2/map2.component';
 import { ManagementComponent } from './management/management.component';
 import { ReversePipe } from './reverse.pipe';
 import { Map3Component } from './map3/map3.component';
+import { Detecting2Component } from './detecting2/detecting2.component';
+import { Map4Component } from './map4/map4.component';
 
 
 @NgModule({
@@ -49,7 +51,9 @@ import { Map3Component } from './map3/map3.component';
     Map2Component,
     ManagementComponent,
     ReversePipe,
-    Map3Component
+    Map3Component,
+    Detecting2Component,
+    Map4Component
   ],
   imports: [
     BrowserModule,
@@ -63,6 +67,7 @@ import { Map3Component } from './map3/map3.component';
       { path: '', component: DashboardComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'detecting', component: DetectingComponent },
+      { path: 'detecting2', component: Detecting2Component },
       { path: 'detecting/:id', component: DetectingComponent },
       { path: 'monitoring', component: MonitoringComponent },
       { path: 'monitoring/:id', component: MonitoringComponent },
@@ -73,6 +78,7 @@ import { Map3Component } from './map3/map3.component';
       { path: 'maps', component: MapsComponent },
       { path: 'maps2', component: Map2Component },
       { path: 'map3', component: Map3Component },
+      { path: 'map4', component: Map4Component },
       { path: 'teams', component: TeamsComponent }
     ])
   ],
