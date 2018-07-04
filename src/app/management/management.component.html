@@ -34,6 +34,12 @@
 
       <div class="md-form">
         <i class="fa fa-ambulance prefix grey-text"></i>
+        <input formControlName="team_key" type="text" id="teamCode" class="form-control" mdbActive>
+        <label for="teamCode">รหัสคัน</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-ambulance prefix grey-text"></i>
         <input formControlName="team_Code" type="text" id="teamCode" class="form-control" mdbActive>
         <label for="teamCode">รหัสหน่วย</label>
       </div>
@@ -313,43 +319,43 @@
       <div class="md-form">
         <i class="fa fa-tag prefix grey-text"></i>
         <input formControlName="time_report" type="text" id="form32" class="form-control" mdbActive>
-        <label for="form34">เวลารับแจ้งเหตุ</label>
+        <label for="form34">เวลารับแจ้งเหตุ {{ item?.time_report | date: 'dd/MM/yyyy - HH:mm'}}</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-tag prefix grey-text"></i>
+        <input formControlName="time_command" type="text" id="form32" class="form-control" mdbActive>
+        <label for="form34">สั่งการ {{ item?.time_command | date: 'dd/MM/yyyy - HH:mm'}}</label>
       </div>
 
       <div class="md-form">
         <i class="fa fa-tag prefix grey-text"></i>
         <input formControlName="time_depart" type="text" id="form32" class="form-control" mdbActive>
-        <label for="form34">สั่งการ</label>
-      </div>
-
-      <div class="md-form">
-        <i class="fa fa-tag prefix grey-text"></i>
-        <input formControlName="time_depart" type="text" id="form32" class="form-control" mdbActive>
-        <label for="form34">ออกจากฐาน</label>
+        <label for="form34">ออกจากฐาน {{ item?.time_depart | date: 'dd/MM/yyyy - HH:mm'}}</label>
       </div>
 
       <div class="md-form">
         <i class="fa fa-tag prefix grey-text"></i>
         <input formControlName="time_arrive_scene" type="text" id="form32" class="form-control" mdbActive>
-        <label for="form34">ถึงที่เกิดเหตุ</label>
+        <label for="form34">ถึงที่เกิดเหตุ {{ item?.time_arrive_scene | date: 'dd/MM/yyyy - HH:mm'}}</label>
       </div>
 
       <div class="md-form">
         <i class="fa fa-tag prefix grey-text"></i>
         <input formControlName="time_leave_scene" type="text" id="form32" class="form-control" mdbActive>
-        <label for="form34">ออกจากที่เกิดเหตุ</label>
+        <label for="form34">ออกจากที่เกิดเหตุ {{ item?.time_leave_scene | date: 'dd/MM/yyyy - HH:mm'}}</label>
       </div>
 
       <div class="md-form">
         <i class="fa fa-tag prefix grey-text"></i>
         <input formControlName="time_arrive_hospital" type="text" id="form32" class="form-control" mdbActive>
-        <label for="form34">ถึง รพ.</label>
+        <label for="form34">ถึง รพ. {{ item?.time_arrive_hospital | date: 'dd/MM/yyyy - HH:mm'}}</label>
       </div>
 
       <div class="md-form">
         <i class="fa fa-tag prefix grey-text"></i>
         <input formControlName="time_arrive_end" type="text" id="form32" class="form-control" mdbActive>
-        <label for="form34">ถึงฐาน</label>
+        <label for="form34">ถึงฐาน {{ item?.time_arrive_end | date: 'dd/MM/yyyy - HH:mm'}}</label>
       </div>
     </div>
     <br>

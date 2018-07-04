@@ -20,6 +20,7 @@ export class ManagementComponent implements OnInit {
     missionNumber: [''],
     missionStatus: [''],
 
+    team_key: [''],
     team_Name: [''],
     team_Code: [''],
     team_AmbulanceNumber:[''],
@@ -118,6 +119,7 @@ export class ManagementComponent implements OnInit {
     form.controls['missionNumber'].setValue(item.missionNumber);
     form.controls['missionStatus'].setValue(item.missionStatus);
 
+    form.controls['team_key'].setValue(item.team_key);
     form.controls['team_Name'].setValue(item.team_Name);
     form.controls['team_Code'].setValue(item.team_Code);
     form.controls['team_AmbulanceNumber'].setValue(item.team_AmbulanceNumber);

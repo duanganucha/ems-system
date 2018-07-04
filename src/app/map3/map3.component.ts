@@ -36,12 +36,12 @@ export class Map3Component implements OnInit {
   //   itemsRef.push({'lng':104.306438});
   }
   id = '-L4znibEOVYUzKeSSDNQ';
-  onSetMarker(event){
-
-    var marker = new Location(event.coords.lat, event.coords.lng);
-    const itemsRef = this.afDB.list('positions');
-    itemsRef.update(this.id,marker);
-    console.log(marker)
+  onSetMarker(event){    
+    setTimeout(() => {
+      var marker = new Location(event.coords.lat, event.coords.lng);
+      const itemsRef = this.afDB.list('positions');
+      itemsRef.update(this.id,marker);
+    }, 2000);
   }
 }
 

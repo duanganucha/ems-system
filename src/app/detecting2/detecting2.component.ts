@@ -37,6 +37,7 @@ export class Detecting2Component implements OnInit {
   public duration: string;
   public start_address: string;
   public end_address: string;
+  missionStatus;
 
   constructor(private activeRoute: ActivatedRoute, private router: Router, private afDB: AngularFireDatabase) {
 
@@ -48,6 +49,7 @@ export class Detecting2Component implements OnInit {
       this.item = action.payload.val();
       console.log(this.item)
       this.StreetViewPanorama(this.item.report_location)
+      this.missionStatus = this.item.missionStatus
 
 
     });
@@ -61,6 +63,12 @@ export class Detecting2Component implements OnInit {
 
   ngOnInit() {
     this.MapStart();
+  }
+
+  onDelete(){
+    const itemsRef = this.afDB.list('test');
+// to get a key, check the Example app below
+  itemsRef.remove('-LAkbuk7l8SsZ6rY0LcN/scene');
   }
 
   onDataManagement(){
@@ -279,8 +287,8 @@ export class Detecting2Component implements OnInit {
     }
 
   }
-
   onMonitoringModal() {
+
     this.monitoringModal.show();
 
     const itemRefTeam = this.afDB.object(`teams/${this.item.team_key}`);
@@ -289,7 +297,7 @@ export class Detecting2Component implements OnInit {
       this.team  = action.payload.val();
       console.log(this.team)
       this.streetViewTeamMonitoring(this.team)
-
+      
     });
 
     var location = {
@@ -322,7 +330,7 @@ export class Detecting2Component implements OnInit {
 
   radioModel: string = 'first';
   onRadioModel(value){
-    // this.radioModel = value
+    this.radioModel = value
   }
 
 }

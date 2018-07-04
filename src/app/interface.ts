@@ -79,7 +79,13 @@ export class DispatchClass {
           public member_one: string,
           public member_two: string,
           public member_three: string,
-          public member_driver: string
+          public member_driver: string,
+
+          public messages: string
+
       
         ) { }      
+}
+export class TreatmentClass {
+  public NSS : true
 }

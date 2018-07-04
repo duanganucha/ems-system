@@ -48,6 +48,7 @@
     mdbWavesEffect>สั่งทีมช่วยเหลือ</button>
   <button type="button" class="btn btn-primary btn-lg " (click)="onMonitoringModal()">Monitoring</button>
   <button type="button" class="btn btn-primary btn-lg " (click)="onDataManagement()">DataManagement</button>
+  <button type="button" class="btn btn-primary btn-lg " (click)="onDelete()">ลบบางตัว</button>
 
 
   <ul *ngFor="let array of calRouteArray">
@@ -127,20 +128,22 @@
   <!-- -------------------------monitoringModal------------------- -->
   <div mdbModal #monitoringModal="mdb-modal" class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-fluid modal-notify modal-success" role="document">
+    <div class="modal-dialog modal-fluid modal-notify modal-primary" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <p class="heading lead">Monitoring</p>
+          <p class="heading lead">Monitoring ( สถานะ : {{ item?.missionStatus }} )</p>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="monitoringModal.hide()">
             <span aria-hidden="true" class="white-text">×</span>
           </button>
         </div>
         <div class="row">
-            <div class="col-2 btn btn-light-blue btn-sm btn-block">สั่งการ</div>
-            <div class="col-3 btn btn-light-blue btn-sm btn-block">ออกจากฐาน</div>
-            <div class="col-3 btn btn-light-blue btn-sm btn-block">ถึงที่เกิดเหตุ</div>
-            <div class="col-2 btn btn-light-blue btn-sm btn-block">นำส่ง</div>
-            <div class="col-3 btn btn-light-blue btn-sm btn-block">ถึงฐาน</div>
+            <div class="col-2 btn  btn-sm btn-block" style="background-color:#397AF2; color:#FFFFFF" [ngClass]="{'  btn-success ': missionStatus === 'สั่งการ' }">สั่งการ</div>
+            <div class="col-2 btn  btn-sm btn-block" style="background-color:#397AF2; color:#FFFFFF" [ngClass]="{'  btn-success ': missionStatus === 'ออกจากฐาน' }">ออกจากฐาน</div>
+            <div class="col-2 btn  btn-sm btn-block" style="background-color:#397AF2; color:#FFFFFF" [ngClass]="{'  btn-success ': missionStatus === 'ถึงที่เกิดเหตุ' }">ถึงที่เกิดเหตุ</div>
+            <div class="col-2 btn  btn-sm btn-block" style="background-color:#397AF2; color:#FFFFFF" [ngClass]="{'  btn-success ': missionStatus === 'นำส่ง' }">นำส่ง</div>
+            <div class="col-2 btn  btn-sm btn-block" style="background-color:#397AF2; color:#FFFFFF" [ngClass]="{'  btn-success ': missionStatus === 'ถึงรพ' }">ถึงรพ.</div>
+            <div class="col-2 btn  btn-sm btn-block" style="background-color:#397AF2; color:#FFFFFF" [ngClass]="{'  btn-success ': missionStatus === 'กลับถึงฐาน' }">กลับถึงฐาน</div>
+           
         </div>
         <div class="modal-body">
            
@@ -189,30 +192,44 @@
                   <h1>{{item?.vitalsign1_pupil}} </h1>
                   รูม่านตา</a>
 
-                <a class="btn btn-blue ">
+                <a class="btn "
+                   style="background-color:#176BCC; color:aliceblue" 
+                  [ngClass]="{'btn-danger': item?.vitalsign1_BP_Diastolic < 100 || item?.vitalsign1_BP_Diastolic > 160 || item?.vitalsign1_BP_Systolic < 60 || item?.vitalsign1_BP_Systolic > 100   }">
                   <h6 class="card-title">BP</h6>
                   <h1>{{item?.vitalsign1_BP_Diastolic}}/{{item?.vitalsign1_BP_Systolic}}</h1>
                   ความดันโลหิต</a>
 
-                <a class="btn btn-blue ">
-                  <h6 class="card-title">Pulse</h6>
-                  <h1>{{ item?.vitalsign1_pulse }}</h1>
+                <a class="btn" 
+                  style="background-color:#176BCC; color:aliceblue" 
+                  [ngClass]="{'btn-danger': item?.vitalsign1_pulse < 60 || item?.vitalsign1_pulse > 120 }">
+                  <h6 class="card-title" >Pulse</h6>
+                  <h1 >{{ item?.vitalsign1_pulse }}</h1>
                   ชีพจร</a>
 
-                <a class="btn btn-blue">
+                <a class="btn"
+                  style="background-color:#176BCC; color:aliceblue" 
+                  [ngClass]="{'btn-danger': item?.vitalsign1_RR < 16 || item?.vitalsign1_RR > 24 }">
                   <h6 class="card-title">RR</h6>
                   <h1>{{ item?.vitalsign1_RR }}</h1>
                   หายใจ</a>
                 
-                <a class="btn btn-blue">
+                <a class="btn"
+                style="background-color:#176BCC; color:aliceblue" 
+                [ngClass]="{'btn-danger': item?.vitalsign1_temperature < 36.5 || item?.vitalsign1_temperature > 37.8 }">
                   <h6 class="card-title">Temp</h6>
                   <h1>{{item?.vitalsign1_temperature}}</h1>
                   อุณหภูมิ</a>
-                <a class="btn btn-blue">
+
+                <a class="btn"
+                style="background-color:#176BCC; color:aliceblue" 
+                [ngClass]="{'btn-danger': item?.vitalsign1_o2sat < 90 }">
                   <h6 class="card-title">O2</h6>
                   <h1>{{item?.vitalsign1_o2sat}}</h1>
                   O2 sat</a>
-                <a class="btn btn-blue btn-block ">
+
+                <a class="btn btn-block "
+                style="background-color:#176BCC; color:aliceblue" 
+                [ngClass]="{'btn-danger': item?.vitalsign1_DTX < 60 || item?.vitalsign1_DTX > 200  }">
                   <h6 class="card-title">DTX</h6>
                   <h1>{{item?.vitalsign1_DTX}} mg%</h1>
                   Blood Sugar</a>
@@ -230,35 +247,56 @@
                   <h1>{{item?.vitalsign2_pupil}} </h1>
                   รูม่านตา</a>
 
-                <a class="btn btn-indigo ">
-                  <h6 class="card-title">BP</h6>
-                  <h1>{{item?.vitalsign2_BP_Diastolic}}/{{item?.vitalsign2_BP_Systolic}}</h1>
-                  ความดันโลหิต</a>
+                  <a class="btn "
+                  style="background-color:#3748AC; color:aliceblue" 
+                 [ngClass]="{'btn-danger': item?.vitalsign2_BP_Diastolic < 100 || item?.vitalsign2_BP_Diastolic > 160 || item?.vitalsign2_BP_Systolic < 60 || item?.vitalsign2_BP_Systolic > 100   }">
+                 <h6 class="card-title">BP</h6>
+                 <h1>{{item?.vitalsign2_BP_Diastolic}}/{{item?.vitalsign2_BP_Systolic}}</h1>
+                 ความดันโลหิต</a>
 
-                <a class="btn btn-indigo ">
-                  <h6 class="card-title">Pulse</h6>
-                  <h1>{{ item?.vitalsign2_pulse }}</h1>
-                  ชีพจร</a>
+               <a class="btn" 
+                 style="background-color:#3748AC; color:aliceblue" 
+                 [ngClass]="{'btn-danger': item?.vitalsign2_pulse < 60 || item?.vitalsign2_pulse > 120 }">
+                 <h6 class="card-title" >Pulse</h6>
+                 <h1 >{{ item?.vitalsign2_pulse }}</h1>
+                 ชีพจร</a>
 
-                <a class="btn btn-indigo">
-                  <h6 class="card-title">RR</h6>
-                  <h1>{{ item?.vitalsign2_RR }}</h1>
-                  หายใจ</a>
-                
-                <a class="btn btn-indigo">
-                  <h6 class="card-title">Temp</h6>
-                  <h1>{{item?.vitalsign2_temperature}}</h1>
-                  อุณหภูมิ</a>
-                <a class="btn btn-indigo">
-                  <h6 class="card-title">O2</h6>
-                  <h1>{{item?.vitalsign2_o2sat}}</h1>
-                  O2 sat</a>
+               <a class="btn"
+                 style="background-color:#3748AC; color:aliceblue" 
+                 [ngClass]="{'btn-danger': item?.vitalsign2_RR < 16 || item?.vitalsign2_RR > 24 }">
+                 <h6 class="card-title">RR</h6>
+                 <h1>{{ item?.vitalsign2_RR }}</h1>
+                 หายใจ</a>
+               
+               <a class="btn"
+               style="background-color:#3748AC; color:aliceblue" 
+               [ngClass]="{'btn-danger': item?.vitalsign2_temperature < 36.5 || item?.vitalsign2_temperature > 37.8 }">
+                 <h6 class="card-title">Temp</h6>
+                 <h1>{{item?.vitalsign2_temperature}}</h1>
+                 อุณหภูมิ</a>
 
-                <a class="btn btn-indigo btn-block ">
-                  <h6 class="card-title">DTX</h6>
-                  <h1>{{item?.vitalsign2_DTX}} mg%</h1>
-                  Blood Sugar</a>
+               <a class="btn"
+               style="background-color:#3748AC; color:aliceblue" 
+               [ngClass]="{'btn-danger': item?.vitalsign2_o2sat < 90 }">
+                 <h6 class="card-title">O2</h6>
+                 <h1>{{item?.vitalsign2_o2sat}}</h1>
+                 O2 sat</a>
+
+               <a class="btn btn-block "
+               style="background-color:#3748AC; color:aliceblue" 
+               [ngClass]="{'btn-danger': item?.vitalsign2_DTX < 60 || item?.vitalsign2_DTX > 200  }">
+                 <h6 class="card-title">DTX</h6>
+                 <h1>{{item?.vitalsign2_DTX}} mg%</h1>
+                 Blood Sugar</a>
               </div>
+              <label class="btn btn-blue-grey btn-block btn-sm waves-light" (click)="onRadioModel('first')"  mdbRadio="Middle" mdbWavesEffect>
+                  Treatment
+              </label>
+              <ul>
+                <li>NSS</li>
+                <li>O2 mask c bag</li>
+                <li>keep warm</li>
+              </ul>
                <!-- -----------/vital-sign2------------ -->
             </div>
           </div>
@@ -272,4 +310,4 @@
     </div>
 
     <!-- -------------------------/monitoringModal------------------- -->
- 
+   
