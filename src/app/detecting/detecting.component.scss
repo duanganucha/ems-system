@@ -1,70 +1,51 @@
-body {
-    /* Margin bottom by footer height */
-    margin-top: 80px;
-    margin-bottom: 100px;
-  }
-  #map {
-    width: 90%;
-    height: 320px;
-  }
-  
-  #map2, #pano {
-    float: left;
-  
-    width: 50%;
-    height: 500px;
-    
-  }
-  
-  #select{
-    width: 90%;
-  }
-   
-  
-  #right-panel {
-    font-family: 'Roboto','sans-serif';
-    line-height: 30px;
-    padding-left: 5px;
-  }
-  
-  #right-panel select, #right-panel input {
-    font-size: 10px;
-  }
-  
-  #right-panel select {
-    width: 100%;
-  }
-  
-  #right-panel i {
-    font-size: 10px;
-  }
-  #right-panel {
-    float: right;
-    height: 100%;
-    width: 100%;
-    overflow: auto;
-  }
-  
-  #right-panel{
-    background-color: rgb(191, 222, 243);
-  }
-  
-  #floating-panel{
-  
-    background-color: rgb(191, 222, 243);
-  }
+#map {
+  width: 90%;
+  height: 320px;
+}
+#map2, #pano {
+  float: left;
 
-  .myStatus {
-    border: 1px dashed black;
-    background-color: green;
-    
+  width: 50%;
+  height: 500px;
+  
+}
+#map2-team, #pano-team {
+  float: left;
 
-   }
+  width: 50%;
+  height: 300px;
+  
+}
 
-   img {
-      height:170px;
-      width:auto;/*maintain aspect ratio*/
-      max-width:500px;
-    }
+#right-panel {
+  font-family: 'Roboto','sans-serif';
+  line-height: 30px;
+  padding-left: 5px;
+}
 
-    
+#right-panel select, #right-panel input {
+  font-size: 10px;
+}
+
+#right-panel select {
+  width: 100%;
+}
+
+#right-panel i {
+  font-size: 10px;
+}
+#right-panel {
+  float: right;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+#right-panel{
+  background-color: rgb(191, 222, 243);
+}
+
+#floating-panel{
+
+  background-color: rgb(191, 222, 243);
+}
