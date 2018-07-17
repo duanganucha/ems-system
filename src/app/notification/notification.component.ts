@@ -35,7 +35,7 @@ export class NotificationComponent implements OnInit {
 
   Form: FormGroup = this.builder.group({
     report_image: [null, [
-      Validators.pattern(/(https?:\/\/.*\.(?:png|jpg))/i)
+      // Validators.pattern(/(https?:\/\/.*\.(?:png|jpg))/i)
     ]],
     report_scene: [null, Validators.required],
     report_telNumber: [null, Validators.required],
@@ -50,7 +50,6 @@ export class NotificationComponent implements OnInit {
   constructor(private afDB: AngularFireDatabase, private router: Router, private builder: FormBuilder) {
 
     this.itemsRef = afDB.list('requests');
-
     // this.items = afDB.list('requests', ref => ref.orderByChild('report_time')).snapshotChanges().map(result => {
     //   return result.reverse();
     // })
@@ -69,9 +68,11 @@ export class NotificationComponent implements OnInit {
   ngOnInit(): void {
 
     this.editForm = this.builder.group({
-      missionLevel : null ,
-      scene_type : null,
-      report_locationDetail : ''
+      missionLevel : '' ,
+      scene_type : '',
+      report_scene : '',
+      report_locationDetail : '',
+      report_telNumber : ''
     });
   }
 
@@ -93,7 +94,7 @@ export class NotificationComponent implements OnInit {
   }
 
   OnManagement(form, item: DispatchClass ) {
-    if (item.status == "UnRead") {
+    if (item.status == "UnRead" && item.status != "complete" && item.status != "OnOperating") {
       this.itemsRef.update(item.key, { status: "Read" });
       console.log('status read')
     }
@@ -101,7 +102,9 @@ export class NotificationComponent implements OnInit {
 
     this.editForm.controls['missionLevel'].setValue(item.missionLevel)
     this.editForm.controls['scene_type'].setValue(item.scene_type)
+    this.editForm.controls['report_scene'].setValue(item.report_scene)
     this.editForm.controls['report_locationDetail'].setValue(item.report_locationDetail)
+    this.editForm.controls['report_telNumber'].setValue(item.report_telNumber)
   }
 
   onEdit(item){

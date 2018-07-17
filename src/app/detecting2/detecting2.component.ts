@@ -50,7 +50,7 @@ export class Detecting2Component implements OnInit {
       console.log(this.item)
       this.StreetViewPanorama(this.item.report_location)
       this.missionStatus = this.item.missionStatus
-
+      console.log("aaa")
 
     });
 

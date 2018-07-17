@@ -50,8 +50,6 @@
 </div>
 
 
-
-
 <!--  table-->
 <div class="table-responsive">
   <table class="table product-table">
@@ -62,7 +60,6 @@
         <th>เวลา</th>
         <th>สถานที่</th>
         <th>เหตุการณ์</th>
-        <th>ชื่อผู้ป่วย</th>
         <th>เบอร์โทร</th>
         <th>Edit</th>
         <th></th>
@@ -74,14 +71,13 @@
     <tbody >
 
       <!--First row-->
-      <tr  *ngFor="let item of items | async | reverse " [ngClass]="{'text-danger':item?.status === 'UnRead','text-success':item?.status === 'Success','text-primary':item?.status === 'OnOperating'}">
+      <tr  *ngFor="let item of items | async | reverse " [ngClass]="{'text-danger':item?.status === 'UnRead','text-success':item?.status === 'complete','text-primary':item?.status === 'OnOperating'}">
         <th scope="row">
           <img src="{{ item?.report_image }}" width="200px" height="120px" alt="" class="img-fluid">
         </th>
         <td>{{ item?.report_time | date: 'dd/MM/yyyy - HH:mm' }}</td>
         <td>{{ item?.report_locationDetail }}</td>
         <td >{{ item?.report_scene }}</td>
-        <td>{{ item?.patient_Name }}</td>
         <td>{{ item?.report_telNumber }}</td>
 
         <td>
@@ -111,12 +107,12 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <img src="{{ item.report_image }}" height=50% class="img-fluid img-review">
+                                <img src="{{ item?.report_image }}" height=50% class="img-fluid img-review">
                               </div>  
                               
                             <div class="col-md-6">
-                                <agm-map [latitude]="item.report_location.lat" [longitude]="item.report_location.lng" [zoom]="16">
-                                    <agm-marker [latitude]="item.report_location.lat" [longitude]="item.report_location.lng"></agm-marker>
+                                <agm-map [latitude]="item?.report_location.lat" [longitude]="item?.report_location.lng" [zoom]="16">
+                                    <agm-marker [latitude]="item?.report_location.lat" [longitude]="item?.report_location.lng"></agm-marker>
                                 </agm-map>
                               </div>
                          
@@ -124,7 +120,7 @@
                               <form [formGroup]="editForm" (ngSubmit)="onEdit(item)" autocomplete="off">
                                      
                                     <div class="md-form form-sm"  >
-                                        &nbsp;<span class="badge badge-info"  ><font size="3">  เลือกเหตุการณ์ </font></span>
+                                        &nbsp;<span class="badge badge-info"  ><font size="3">  เลือกระดับความรุนแรง </font></span>
                                       <select formControlName="missionLevel">
                                             <option [value]="level" *ngFor="let level of levelsMission" class="dropdown-item">{{level}}</option>
                                        </select>
@@ -133,16 +129,31 @@
                                       <select formControlName="scene_type">
                                             <option [value]="scene" *ngFor="let scene of scenes_type" class="dropdown-item">{{scene}}</option>
                                        </select>
-                                    </div>
-                                    <div class="md-form form-sm">
+
+                                       
+                                       
+                                      </div>
+                                      <div class="md-form form-sm">
                                         <i class="fa fa-map-marker prefix grey-text"></i>
                                         <input formControlName="report_locationDetail" type="text" id="report_locationDetail" class="form-control" mdbActive>
                                         <label for="report_locationDetail">สถานที่เกิดเหตุ</label>
                                       </div>
 
+                                    <div class="md-form form-sm">
+                                        <i class="fa fa-heart prefix grey-text"></i>
+                                        <input formControlName="report_scene" type="text" id="report_scene" class="form-control" mdbActive>
+                                        <label for="report_scene">เหตุการณ์ / อาการรับแจ้ง</label>
+                                      </div>
+
+                                    <div class="md-form form-sm">
+                                        <i class="fa fa-heart prefix grey-text"></i>
+                                        <input formControlName="report_telNumber" type="text" id="report_scene" class="form-control" mdbActive>
+                                        <label for="report_scene">เบอร์โทร</label>
+                                      </div>
+
                                       <div class="text-right">
                                         <button type="submit" class="btn btn-mdb-color waves-light " mdbWavesEffect >
-                                          <i class="fa fa-save" aria-hidden="true"></i> บันทึก </button>                                        
+                                          <i class="fa fa-save"></i> บันทึก </button>                                        
                                       </div>
 
                               </form>

@@ -111,6 +111,10 @@ export class ManagementComponent implements OnInit {
   ngOnInit() {
     // this.onFormManagement();
   }
+
+  onDetecting(){
+    this.router.navigate(['/detecting', this.id]);
+  }
   onFormManagement(item) {
 
     const form = this.Form;

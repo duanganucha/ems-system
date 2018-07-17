@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/Rx'
+
+
 declare const google: any;
 
 @Component({
@@ -11,9 +17,18 @@ export class Map2Component implements OnInit {
   directionsService = new google.maps.DirectionsService;
   directionsDisplay = new google.maps.DirectionsRenderer;
 
+  itemsRef: AngularFireList<any>;
+  items: Observable<any[]>;
 
+  constructor(private afDB: AngularFireDatabase) {
 
-  constructor() { }
+    this.itemsRef = afDB.list('tests');
+    
+    this.items = this.itemsRef.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    });
+
+  }
 
   ngOnInit() {
     // this.MapStart();

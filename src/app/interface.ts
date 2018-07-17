@@ -12,6 +12,8 @@ export class DispatchClass {
           public missionLevel :string,
           public missionStatus :string,
           
+          public servertime :any,
+         
           public team_key :string,
           public team_Name: string,
           public team_Code: string,
@@ -30,12 +32,14 @@ export class DispatchClass {
           public report_Way: string,
           public report_Who: string,
           public report_telNumber: string,
+          public report_mode: string,
           
           public patient_Name: string,
           public patient_Age: string,
           public patient_HN: string,
           public patient_ID: string,
           public patient_image_ByTeam: string,
+          public patient_history: string,
       
           public vitalsign1_symptom_first: string,
           public vitalsign1_GSC: string,

@@ -2,6 +2,13 @@
   <button type="button" class="btn btn-blue-grey  waves-light" (click)="onCancel()" mdbWavesEffect>
     <i class="fa fa-step-backward pr-2"></i>ย้อนกลับ</button>
 
+  <button type="button" class="btn btn-blue-grey  waves-light" (click)="onDetecting()" mdbWavesEffect>
+    <i class="fa fa-step-backward pr-2"></i>ปฏิบัติการ</button>
+
+    <!-- <i class="fa fa-check" aria-hidden="true"></i>เริ่มปฏิบัติการ</button>
+    <button type="button" class="btn btn-purple waves-light" mdbWavesEffect (click)="basicModal.hide()" (click)="onManageData(item)"
+      [routerLink]="['/management/'+item.key]"> -->
+
   <form [formGroup]="Form" autocomplete="off" (ngSubmit)="onSubmit()" class="modal-body mb-0">
 
     <div class="row border border-danger rounded" style=" padding: 20px 5px 5px 15px">

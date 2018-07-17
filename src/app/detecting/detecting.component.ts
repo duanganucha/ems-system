@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { DispatchClass } from '../interface';
 import { Team } from '../team';
+import { FormGroup, Validators, FormBuilder } from '../../../node_modules/@angular/forms';
 
 declare var google: any;
 
@@ -42,7 +43,10 @@ export class DetectingComponent implements OnInit {
   public end_address: string;
   missionStatus;
 
-  constructor(private activeRoute: ActivatedRoute, private router: Router, private afDB: AngularFireDatabase) {
+  constructor(private activeRoute: ActivatedRoute, 
+              private router: Router, 
+              private afDB: AngularFireDatabase,
+              private builder: FormBuilder) {
 
 
     this.id = this.activeRoute.snapshot.params['id'];
@@ -66,12 +70,6 @@ export class DetectingComponent implements OnInit {
 
   ngOnInit() {
     this.MapStart();
-  }
-
-  onDelete(){
-    const itemsRef = this.afDB.list('test');
-// to get a key, check the Example app below
-  itemsRef.remove('-LAkbuk7l8SsZ6rY0LcN/scene');
   }
 
   onDataManagement(){
@@ -241,7 +239,7 @@ export class DetectingComponent implements OnInit {
 
     var map2 = new google.maps.Map(document.getElementById('map2'), {
       center: fenway,
-      zoom: 16
+      zoom: 12
     });
     var panorama = new google.maps.StreetViewPanorama(
       document.getElementById('pano'), {
@@ -285,7 +283,7 @@ export class DetectingComponent implements OnInit {
       console.log('please select team.')
     } else {
       const itemsRef = this.afDB.list('requests');
-      itemsRef.update(this.id, { team_key: this.selectTeam.key ,missionStatus:'สั่งการ' });
+      itemsRef.update(this.id, { team_key: this.selectTeam.key ,missionStatus:'สั่งการ' , status : 'OnOperating' });
       this.directionTeamModal.hide();
     }
 
@@ -308,11 +306,19 @@ export class DetectingComponent implements OnInit {
       lng: this.item.report_location.lng + 0.00000009
     }
 
+    this.Form.controls['messages'].setValue(this.item.messages);
+    this.Form.controls['patient_history'].setValue(this.item.patient_history);
+
+    if(this.item.patient_image_ByTeam == "assets/imgs/camera.jpg"){
+      this.item.patient_image_ByTeam = "http://www.euforgen.org/fileadmin/templates/euforgen.org/Site/img/picture-not-available.jpg"
+    }
+
     setTimeout(() => {
       const itemsRef = this.afDB.list('teams');
       itemsRef.update(this.item.team_key , { location : location });
       this.locationAmbulanceFormat(this.team.location)
     }, 3000);
+
   }
 
   locationAmbu;
@@ -334,6 +340,23 @@ export class DetectingComponent implements OnInit {
   radioModel: string = 'first';
   onRadioModel(value){
     this.radioModel = value
+  }
+
+  Form: FormGroup = this.builder.group({
+    messages: ['xxx'],
+    patient_history: ['xxx']
+  })
+
+  onSaveMonitoring(){
+    const itemsRef = this.afDB.list('requests');
+    // var value = JSON.parse( JSON.stringify(this.Form.value ))
+    itemsRef.update( this.id , this.Form.value );
+  }
+
+  onMissionFinish(){
+    const itemsRef = this.afDB.list('requests');
+    itemsRef.update(this.id, {  missionStatus : 'เสร็จสิ้น', status : 'complete'} ) ;
+
   }
 
 }

@@ -11,3 +11,26 @@
     <div id="map2"></div>
     <div id="pano"></div>
   </div>
+
+  <div>
+    <h1>ddddd list</h1>
+    <ul *ngFor="let item of items | async ">
+      <img src="{{ item?.base64Image }}" width="200px" height="120px" alt="" class="img-fluid">
+      <li> {{ item?.clienttime | date: 'dd/MM/yyyy - HH:mm' }} </li>
+      <li> {{ item?.servertime | date: 'dd/MM/yyyy - HH:mm' }} </li>
+      <li> {{ item?.tel }}</li>
+    </ul>
+  </div>
+
+  <!-- <div>
+    <tr  *ngFor="let item of items | async | reverse " [ngClass]="{'text-danger':item?.status === 'UnRead','text-success':item?.status === 'Success','text-primary':item?.status === 'OnOperating'}">
+      <th scope="row">
+        <img src="{{ item?.report_image }}" width="200px" height="120px" alt="" class="img-fluid">
+      </th>
+      <td>{{ item?.report_time | date: 'dd/MM/yyyy - HH:mm' }}</td>
+      <td>{{ item?.report_locationDetail }}</td>
+      <td >{{ item?.report_scene }}</td>
+      <td>{{ item?.report_telNumber }}</td>
+
+      <td>
+  </div> -->
